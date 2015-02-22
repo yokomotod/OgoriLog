@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		9E6CACB21A99A19200BFB4CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */; };
-		9E6CACB51A99A19200BFB4CB /* OgoriLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB31A99A19200BFB4CB /* OgoriLog.xcdatamodeld */; };
 		9E6CACB71A99A19200BFB4CB /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */; };
 		9E6CACB91A99A19200BFB4CB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */; };
-		9E6CACBC1A99A19200BFB4CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBA1A99A19200BFB4CB /* Main.storyboard */; };
 		9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBD1A99A19200BFB4CB /* Images.xcassets */; };
-		9E6CACC11A99A19200BFB4CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBF1A99A19200BFB4CB /* LaunchScreen.xib */; };
 		9E6CACCD1A99A19200BFB4CB /* OgoriLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */; };
+		9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */; };
+		9EDA9C9B1A99A84D005CA922 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9D1A99A84D005CA922 /* Main.storyboard */; };
+		9EDA9CA01A99A8FC005CA922 /* OgoriLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,15 +31,15 @@
 		9E6CACAC1A99A19200BFB4CB /* OgoriLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OgoriLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6CACB01A99A19200BFB4CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E6CACB41A99A19200BFB4CB /* OgoriLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OgoriLog.xcdatamodel; sourceTree = "<group>"; };
 		9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		9E6CACBB1A99A19200BFB4CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E6CACBD1A99A19200BFB4CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9E6CACC01A99A19200BFB4CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9E6CACC61A99A19200BFB4CB /* OgoriLogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OgoriLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6CACCB1A99A19200BFB4CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OgoriLogTests.swift; sourceTree = "<group>"; };
+		9EDA9C991A99A84A005CA922 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9EDA9C9C1A99A84D005CA922 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9EDA9C9F1A99A8FC005CA922 /* OgoriLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OgoriLog.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,41 +81,57 @@
 		9E6CACAE1A99A19200BFB4CB /* OgoriLog */ = {
 			isa = PBXGroup;
 			children = (
-				9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */,
-				9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */,
-				9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */,
-				9E6CACBA1A99A19200BFB4CB /* Main.storyboard */,
-				9E6CACBD1A99A19200BFB4CB /* Images.xcassets */,
-				9E6CACBF1A99A19200BFB4CB /* LaunchScreen.xib */,
-				9E6CACB31A99A19200BFB4CB /* OgoriLog.xcdatamodeld */,
-				9E6CACAF1A99A19200BFB4CB /* Supporting Files */,
+				9E6CACD61A99A48300BFB4CB /* Resources */,
+				9E6CACD71A99A48300BFB4CB /* Sources */,
 			);
 			path = OgoriLog;
-			sourceTree = "<group>";
-		};
-		9E6CACAF1A99A19200BFB4CB /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9E6CACB01A99A19200BFB4CB /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		9E6CACC91A99A19200BFB4CB /* OgoriLogTests */ = {
 			isa = PBXGroup;
 			children = (
-				9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */,
-				9E6CACCA1A99A19200BFB4CB /* Supporting Files */,
+				9E6CACD81A99A48F00BFB4CB /* Resources */,
+				9E6CACD91A99A48F00BFB4CB /* Sources */,
 			);
 			path = OgoriLogTests;
 			sourceTree = "<group>";
 		};
-		9E6CACCA1A99A19200BFB4CB /* Supporting Files */ = {
+		9E6CACD61A99A48300BFB4CB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACBD1A99A19200BFB4CB /* Images.xcassets */,
+				9E6CACB01A99A19200BFB4CB /* Info.plist */,
+				9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */,
+				9EDA9C9D1A99A84D005CA922 /* Main.storyboard */,
+				9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9E6CACD71A99A48300BFB4CB /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */,
+				9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */,
+				9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		9E6CACD81A99A48F00BFB4CB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				9E6CACCB1A99A19200BFB4CB /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9E6CACD91A99A48F00BFB4CB /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,8 +214,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E6CACBC1A99A19200BFB4CB /* Main.storyboard in Resources */,
-				9E6CACC11A99A19200BFB4CB /* LaunchScreen.xib in Resources */,
+				9EDA9C9B1A99A84D005CA922 /* Main.storyboard in Resources */,
+				9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */,
 				9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,9 +235,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E6CACB21A99A19200BFB4CB /* AppDelegate.swift in Sources */,
-				9E6CACB51A99A19200BFB4CB /* OgoriLog.xcdatamodeld in Sources */,
 				9E6CACB71A99A19200BFB4CB /* MasterViewController.swift in Sources */,
 				9E6CACB91A99A19200BFB4CB /* DetailViewController.swift in Sources */,
+				9EDA9CA01A99A8FC005CA922 /* OgoriLog.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,20 +260,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9E6CACBA1A99A19200BFB4CB /* Main.storyboard */ = {
+		9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9E6CACBB1A99A19200BFB4CB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9E6CACBF1A99A19200BFB4CB /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9E6CACC01A99A19200BFB4CB /* Base */,
+				9EDA9C991A99A84A005CA922 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		9EDA9C9D1A99A84D005CA922 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDA9C9C1A99A84D005CA922 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -346,7 +362,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = OgoriLog/Info.plist;
+				INFOPLIST_FILE = OgoriLog/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -356,7 +372,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = OgoriLog/Info.plist;
+				INFOPLIST_FILE = OgoriLog/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -374,7 +390,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = OgoriLogTests/Info.plist;
+				INFOPLIST_FILE = OgoriLogTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OgoriLog.app/OgoriLog";
@@ -389,7 +405,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = OgoriLogTests/Info.plist;
+				INFOPLIST_FILE = OgoriLogTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OgoriLog.app/OgoriLog";
@@ -415,6 +431,7 @@
 				9E6CACD21A99A19200BFB4CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E6CACD31A99A19200BFB4CB /* Build configuration list for PBXNativeTarget "OgoriLogTests" */ = {
 			isa = XCConfigurationList;
@@ -423,16 +440,17 @@
 				9E6CACD51A99A19200BFB4CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		9E6CACB31A99A19200BFB4CB /* OgoriLog.xcdatamodeld */ = {
+		9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				9E6CACB41A99A19200BFB4CB /* OgoriLog.xcdatamodel */,
+				9EDA9C9F1A99A8FC005CA922 /* OgoriLog.xcdatamodel */,
 			);
-			currentVersion = 9E6CACB41A99A19200BFB4CB /* OgoriLog.xcdatamodel */;
+			currentVersion = 9EDA9C9F1A99A8FC005CA922 /* OgoriLog.xcdatamodel */;
 			path = OgoriLog.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
