@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Bill" representedClassName="OgoriLog.Bill">
+        <attribute name="amount" attributeType="Double">
+            <userInfo/>
+        </attribute>
+        <attribute name="identifier" attributeType="Integer 32">
+            <userInfo/>
+        </attribute>
+        <attribute name="timeStamp" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="bills" inverseEntity="Friend">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
+    </entity>
+    <entity name="Friend" representedClassName="OgoriLog.Friend">
+        <attribute name="identifier" attributeType="Integer 32">
+            <userInfo/>
+        </attribute>
+        <attribute name="name" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="timeStamp" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="totalBill" attributeType="Double">
+            <userInfo/>
+        </attribute>
+        <relationship name="bills" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bill" inverseName="friend" inverseEntity="Bill">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <elements>
-        <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
+        <element name="Bill" positionX="558" positionY="284" width="128" height="118"/>
+        <element name="Friend" positionX="261" positionY="189" width="128" height="118"/>
     </elements>
 </model>

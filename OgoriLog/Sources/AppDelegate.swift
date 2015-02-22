@@ -27,14 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let splitViewController = UISplitViewController()
         splitViewController.delegate = self
 
-        let masterViewController = MasterViewController()
-        masterViewController.managedObjectContext = self.managedObjectContext
-        let masterNavigationController = UINavigationController(rootViewController: masterViewController)
+        let friendListViewController = FriendListViewController()
+        friendListViewController.managedObjectContext = self.managedObjectContext
+        let friendListNavigationController = UINavigationController(rootViewController: friendListViewController)
 
-        let detailNavigationController = UINavigationController(rootViewController: DetailViewController())
-        detailNavigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        let friendDetailNavigationController = UINavigationController(rootViewController: FriendDetailViewController())
+        friendDetailNavigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
 
-        splitViewController.viewControllers = [masterNavigationController, detailNavigationController]
+        splitViewController.viewControllers = [friendListNavigationController, friendDetailNavigationController]
 
         self.window?.rootViewController = splitViewController
         self.window?.makeKeyAndVisible()
@@ -69,8 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
         if let secondaryAsNavController = secondaryViewController as? UINavigationController {
-            if let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController {
-                if topAsDetailController.detailItem == nil {
+            if let topAsFriendDetailController = secondaryAsNavController.topViewController as? FriendDetailViewController {
+                if topAsFriendDetailController.friend == nil {
                     // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
                     return true
                 }
@@ -97,9 +97,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("OgoriLog.sqlite")
+        let options = [
+            NSMigratePersistentStoresAutomaticallyOption : true,
+            NSInferMappingModelAutomaticallyOption : true
+        ]
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options, error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()
