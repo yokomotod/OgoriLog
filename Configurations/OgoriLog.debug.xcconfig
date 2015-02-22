@@ -9,3 +9,5 @@
 #include "Base.xcconfig"
 #include "Base.debug.xcconfig"
 #include "Base-OgoriLog.xcconfig"
+
+#include "Pods/Target Support Files/Pods-OgoriLog/Pods-OgoriLog.debug.xcconfig"
