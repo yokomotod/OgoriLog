@@ -22,14 +22,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             NSSetUncaughtExceptionHandler(uncaughtExceptionHandlerPointer)
         #endif
 
-        let splitViewController = self.window!.rootViewController as UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
-        navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+
+        let splitViewController = UISplitViewController()
         splitViewController.delegate = self
 
-        let masterNavigationController = splitViewController.viewControllers[0] as UINavigationController
-        let controller = masterNavigationController.topViewController as MasterViewController
-        controller.managedObjectContext = self.managedObjectContext
+        let masterViewController = MasterViewController()
+        masterViewController.managedObjectContext = self.managedObjectContext
+        let masterNavigationController = UINavigationController(rootViewController: masterViewController)
+
+        let detailNavigationController = UINavigationController(rootViewController: DetailViewController())
+        detailNavigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+
+        splitViewController.viewControllers = [masterNavigationController, detailNavigationController]
+
+        self.window?.rootViewController = splitViewController
+        self.window?.makeKeyAndVisible()
         return true
     }
 
