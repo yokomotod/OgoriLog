@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9E6CACB21A99A19200BFB4CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */; };
+		9E6CACB51A99A19200BFB4CB /* OgoriLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB31A99A19200BFB4CB /* OgoriLog.xcdatamodeld */; };
+		9E6CACB71A99A19200BFB4CB /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */; };
+		9E6CACB91A99A19200BFB4CB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */; };
+		9E6CACBC1A99A19200BFB4CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBA1A99A19200BFB4CB /* Main.storyboard */; };
+		9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBD1A99A19200BFB4CB /* Images.xcassets */; };
+		9E6CACC11A99A19200BFB4CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBF1A99A19200BFB4CB /* LaunchScreen.xib */; };
+		9E6CACCD1A99A19200BFB4CB /* OgoriLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9E6CACC71A99A19200BFB4CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E6CACA41A99A19200BFB4CB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E6CACAB1A99A19200BFB4CB;
+			remoteInfo = OgoriLog;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9E6CACAC1A99A19200BFB4CB /* OgoriLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OgoriLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E6CACB01A99A19200BFB4CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9E6CACB41A99A19200BFB4CB /* OgoriLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OgoriLog.xcdatamodel; sourceTree = "<group>"; };
+		9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		9E6CACBB1A99A19200BFB4CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9E6CACBD1A99A19200BFB4CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9E6CACC01A99A19200BFB4CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9E6CACC61A99A19200BFB4CB /* OgoriLogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OgoriLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E6CACCB1A99A19200BFB4CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OgoriLogTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9E6CACA91A99A19200BFB4CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E6CACC31A99A19200BFB4CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9E6CACA31A99A19200BFB4CB = {
+			isa = PBXGroup;
+			children = (
+				9E6CACAE1A99A19200BFB4CB /* OgoriLog */,
+				9E6CACC91A99A19200BFB4CB /* OgoriLogTests */,
+				9E6CACAD1A99A19200BFB4CB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9E6CACAD1A99A19200BFB4CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACAC1A99A19200BFB4CB /* OgoriLog.app */,
+				9E6CACC61A99A19200BFB4CB /* OgoriLogTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9E6CACAE1A99A19200BFB4CB /* OgoriLog */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */,
+				9E6CACB61A99A19200BFB4CB /* MasterViewController.swift */,
+				9E6CACB81A99A19200BFB4CB /* DetailViewController.swift */,
+				9E6CACBA1A99A19200BFB4CB /* Main.storyboard */,
+				9E6CACBD1A99A19200BFB4CB /* Images.xcassets */,
+				9E6CACBF1A99A19200BFB4CB /* LaunchScreen.xib */,
+				9E6CACB31A99A19200BFB4CB /* OgoriLog.xcdatamodeld */,
+				9E6CACAF1A99A19200BFB4CB /* Supporting Files */,
+			);
+			path = OgoriLog;
+			sourceTree = "<group>";
+		};
+		9E6CACAF1A99A19200BFB4CB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACB01A99A19200BFB4CB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9E6CACC91A99A19200BFB4CB /* OgoriLogTests */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */,
+				9E6CACCA1A99A19200BFB4CB /* Supporting Files */,
+			);
+			path = OgoriLogTests;
+			sourceTree = "<group>";
+		};
+		9E6CACCA1A99A19200BFB4CB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CACCB1A99A19200BFB4CB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9E6CACAB1A99A19200BFB4CB /* OgoriLog */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E6CACD01A99A19200BFB4CB /* Build configuration list for PBXNativeTarget "OgoriLog" */;
+			buildPhases = (
+				9E6CACA81A99A19200BFB4CB /* Sources */,
+				9E6CACA91A99A19200BFB4CB /* Frameworks */,
+				9E6CACAA1A99A19200BFB4CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OgoriLog;
+			productName = OgoriLog;
+			productReference = 9E6CACAC1A99A19200BFB4CB /* OgoriLog.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9E6CACC51A99A19200BFB4CB /* OgoriLogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E6CACD31A99A19200BFB4CB /* Build configuration list for PBXNativeTarget "OgoriLogTests" */;
+			buildPhases = (
+				9E6CACC21A99A19200BFB4CB /* Sources */,
+				9E6CACC31A99A19200BFB4CB /* Frameworks */,
+				9E6CACC41A99A19200BFB4CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9E6CACC81A99A19200BFB4CB /* PBXTargetDependency */,
+			);
+			name = OgoriLogTests;
+			productName = OgoriLogTests;
+			productReference = 9E6CACC61A99A19200BFB4CB /* OgoriLogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9E6CACA41A99A19200BFB4CB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = bookside.net;
+				TargetAttributes = {
+					9E6CACAB1A99A19200BFB4CB = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					9E6CACC51A99A19200BFB4CB = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 9E6CACAB1A99A19200BFB4CB;
+					};
+				};
+			};
+			buildConfigurationList = 9E6CACA71A99A19200BFB4CB /* Build configuration list for PBXProject "OgoriLog" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9E6CACA31A99A19200BFB4CB;
+			productRefGroup = 9E6CACAD1A99A19200BFB4CB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9E6CACAB1A99A19200BFB4CB /* OgoriLog */,
+				9E6CACC51A99A19200BFB4CB /* OgoriLogTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9E6CACAA1A99A19200BFB4CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E6CACBC1A99A19200BFB4CB /* Main.storyboard in Resources */,
+				9E6CACC11A99A19200BFB4CB /* LaunchScreen.xib in Resources */,
+				9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E6CACC41A99A19200BFB4CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9E6CACA81A99A19200BFB4CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E6CACB21A99A19200BFB4CB /* AppDelegate.swift in Sources */,
+				9E6CACB51A99A19200BFB4CB /* OgoriLog.xcdatamodeld in Sources */,
+				9E6CACB71A99A19200BFB4CB /* MasterViewController.swift in Sources */,
+				9E6CACB91A99A19200BFB4CB /* DetailViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E6CACC21A99A19200BFB4CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E6CACCD1A99A19200BFB4CB /* OgoriLogTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9E6CACC81A99A19200BFB4CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E6CACAB1A99A19200BFB4CB /* OgoriLog */;
+			targetProxy = 9E6CACC71A99A19200BFB4CB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9E6CACBA1A99A19200BFB4CB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9E6CACBB1A99A19200BFB4CB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9E6CACBF1A99A19200BFB4CB /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9E6CACC01A99A19200BFB4CB /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9E6CACCE1A99A19200BFB4CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9E6CACCF1A99A19200BFB4CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9E6CACD11A99A19200BFB4CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OgoriLog/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9E6CACD21A99A19200BFB4CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OgoriLog/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9E6CACD41A99A19200BFB4CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OgoriLogTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OgoriLog.app/OgoriLog";
+			};
+			name = Debug;
+		};
+		9E6CACD51A99A19200BFB4CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OgoriLogTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OgoriLog.app/OgoriLog";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9E6CACA71A99A19200BFB4CB /* Build configuration list for PBXProject "OgoriLog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E6CACCE1A99A19200BFB4CB /* Debug */,
+				9E6CACCF1A99A19200BFB4CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9E6CACD01A99A19200BFB4CB /* Build configuration list for PBXNativeTarget "OgoriLog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E6CACD11A99A19200BFB4CB /* Debug */,
+				9E6CACD21A99A19200BFB4CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9E6CACD31A99A19200BFB4CB /* Build configuration list for PBXNativeTarget "OgoriLogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E6CACD41A99A19200BFB4CB /* Debug */,
+				9E6CACD51A99A19200BFB4CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9E6CACB31A99A19200BFB4CB /* OgoriLog.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9E6CACB41A99A19200BFB4CB /* OgoriLog.xcdatamodel */,
+			);
+			currentVersion = 9E6CACB41A99A19200BFB4CB /* OgoriLog.xcdatamodel */;
+			path = OgoriLog.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9E6CACA41A99A19200BFB4CB /* Project object */;
+}
