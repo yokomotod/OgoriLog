@@ -15,6 +15,7 @@
 		9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */; };
 		9EDA9C9B1A99A84D005CA922 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9D1A99A84D005CA922 /* Main.storyboard */; };
 		9EDA9CA01A99A8FC005CA922 /* OgoriLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */; };
+		9EDA9CAD1A99AF51005CA922 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9CAF1A99AF51005CA922 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		9EDA9CA81A99AB9B005CA922 /* OgoriLog.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OgoriLog.release.xcconfig; sourceTree = "<group>"; };
 		9EDA9CA91A99ABA6005CA922 /* OgoriLogTests.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OgoriLogTests.debug.xcconfig; sourceTree = "<group>"; };
 		9EDA9CAA1A99ABB1005CA922 /* OgoriLogTests.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OgoriLogTests.release.xcconfig; sourceTree = "<group>"; };
+		9EDA9CAE1A99AF51005CA922 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				9E6CACBD1A99A19200BFB4CB /* Images.xcassets */,
 				9E6CACB01A99A19200BFB4CB /* Info.plist */,
+				9EDA9CAF1A99AF51005CA922 /* InfoPlist.strings */,
 				9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */,
 				9EDA9C9D1A99A84D005CA922 /* Main.storyboard */,
 				9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */,
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EDA9C9B1A99A84D005CA922 /* Main.storyboard in Resources */,
+				9EDA9CAD1A99AF51005CA922 /* InfoPlist.strings in Resources */,
 				9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */,
 				9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */,
 			);
@@ -300,6 +304,14 @@
 				9EDA9C9C1A99A84D005CA922 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9EDA9CAF1A99AF51005CA922 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDA9CAE1A99AF51005CA922 /* Base */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
