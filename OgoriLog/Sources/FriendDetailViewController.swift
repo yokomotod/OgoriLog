@@ -12,7 +12,8 @@ import CoreData
 class FriendDetailViewController: UIViewController {
 
     var managedObjectContext: NSManagedObjectContext? = nil
-    var totalBillButton: UIButton!
+    var nameButton: UIButton?
+    var totalBillButton: UIButton?
 
 
     var friend: Friend? {
@@ -25,6 +26,9 @@ class FriendDetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let friend = self.friend {
+            if let button = self.nameButton {
+                button.setTitle(friend.name, forState: .Normal)
+            }
             if let button = self.totalBillButton {
                 button.setTitle(friend.totalBill.stringValue, forState: .Normal)
             }
@@ -34,38 +38,69 @@ class FriendDetailViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addBill:")
-
         self.view.backgroundColor = UIColor.whiteColor()
-        self.totalBillButton = UIButton.buttonWithType(.System) as UIButton
-        self.totalBillButton.frame =  CGRectMake(50, 100, 300, 50)
-        self.totalBillButton.addTarget(self, action: "listBills:", forControlEvents: .TouchUpInside)
-        self.view.addSubview(self.totalBillButton)
+
+        let nameButton = UIButton.buttonWithType(.System) as UIButton
+        nameButton.bk_addEventHandler({ sender in
+            let controller = FriendAddViewController.friendAddViewController()
+            controller.managedObjectContext = self.managedObjectContext
+            controller.friend = self.friend
+            self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+        }, forControlEvents: .TouchUpInside)
+
+        let totalBillButton = UIButton.buttonWithType(.System) as UIButton
+        totalBillButton.bk_addEventHandler({ sender in
+            let controller = BillListViewController()
+            controller.managedObjectContext = self.managedObjectContext
+            controller.friend = self.friend
+            self.showDetailViewController(controller, sender: self)
+        }, forControlEvents: .TouchUpInside)
+
+        let addBillButton = UIButton.buttonWithType(.System) as UIButton
+        addBillButton.setTitle("Add Bill", forState: .Normal)
+        addBillButton.bk_addEventHandler({ sender in
+            let controller = BillAddViewController.billAddViewController()
+            controller.managedObjectContext = self.managedObjectContext
+            controller.friend = self.friend
+            self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+            }, forControlEvents: .TouchUpInside)
+
+        self.view.addSubview(nameButton)
+        self.view.addSubview(totalBillButton)
+        self.view.addSubview(addBillButton)
+        nameButton.snp_makeConstraints { make in
+            make.centerX.equalTo(nameButton.superview!)
+            make.bottom.equalTo(totalBillButton.snp_top)
+        }
+        totalBillButton.snp_makeConstraints { make in
+            make.centerX.equalTo(nameButton.superview!)
+            make.centerY.equalTo(nameButton.superview!)
+        }
+        addBillButton.snp_makeConstraints { make in
+            make.height.equalTo(60.0)
+
+            make.left.equalTo(addBillButton.superview!.snp_left)
+            make.right.equalTo(addBillButton.superview!.snp_right)
+            make.bottom.equalTo(addBillButton.superview!.snp_bottom)
+        }
+
+        self.nameButton = nameButton
+        self.totalBillButton = totalBillButton
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.configureView()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func addBill(sender: AnyObject) {
-        let controller = BillAddViewController.billAddViewController()
-        controller.managedObjectContext = self.managedObjectContext
-        controller.friend = self.friend
-        self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
-    }
-
-    func listBills(sender: AnyObject) {
-        let controller = BillListViewController()
-        controller.managedObjectContext = self.managedObjectContext
-        controller.friend = self.friend
-        self.showDetailViewController(controller, sender: self)
     }
 
 }

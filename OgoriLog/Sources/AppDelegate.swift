@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 
+import BlocksKit
+import Snap
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
@@ -21,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         #if DEBUG
             NSSetUncaughtExceptionHandler(uncaughtExceptionHandlerPointer)
         #endif
+
+        println(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first)
 
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 

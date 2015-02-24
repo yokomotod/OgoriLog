@@ -13,6 +13,10 @@ class BillAddViewController: UITableViewController {
 
     var managedObjectContext: NSManagedObjectContext? = nil
     var friend: Friend?
+    var bill: Bill?
+
+    var amountTextField: UITextField?
+    var titleTextField: UITextField?
 
     class func billAddViewController() -> Self {
         return self.init(style: .Grouped)
@@ -21,7 +25,10 @@ class BillAddViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { sender in
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            return
+        }) as? UIBarButtonItem
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -33,24 +40,31 @@ class BillAddViewController: UITableViewController {
 
     // MARK: - Action
 
-    func done(sender: AnyObject) {
-        let context = self.managedObjectContext
-        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context!) as Bill
+    func add(sender: AnyObject) {
+        if self.amountTextField == nil || self.amountTextField!.text.isEmpty {
+            return
+        }
 
-        // If appropriate, configure the new managed object.
-        newManagedObject.identifier = newManagedObject.lastIdentifier() + 1
-        newManagedObject.amount = 0.0
-        newManagedObject.timeStamp = NSDate()
-        newManagedObject.title = "Fuga";
-        newManagedObject.friend = self.friend!
+        let amount = atof(self.amountTextField!.text)
+        let title = self.titleTextField?.text
 
-        // Save the context.
-        var error: NSError? = nil
-        if !context!.save(&error) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            //println("Unresolved error \(error), \(error.userInfo)")
-            abort()
+        if self.bill != nil {
+            if self.bill!.amount != amount || self.bill!.title != title {
+                self.bill!.amount = amount
+                self.bill!.title = title
+                // Save the context.
+                var error: NSError? = nil
+                if !self.managedObjectContext!.save(&error) {
+                    abort()
+                }
+            }
+        } else {
+            self.friend?.addNewBill(amount, title)
+            // Save the context.
+            var error: NSError? = nil
+            if !self.managedObjectContext!.save(&error) {
+                abort()
+            }
         }
 
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
@@ -65,14 +79,71 @@ class BillAddViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
-        // Configure the cell...
-        
+        cell.selectionStyle = .None
+
+        switch (indexPath.row) {
+        case 0:
+            let textField = UITextField()
+            textField.textAlignment = .Center
+            textField.placeholder = "¥ 0"
+            if self.bill != nil {
+                textField.text = self.bill!.amount.stringValue
+            }
+            cell.contentView.addSubview(textField)
+            textField.snp_makeConstraints { make in
+                make.top.equalTo(cell.contentView.snp_topMargin)
+                make.left.equalTo(cell.contentView.snp_leftMargin)
+                make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+                make.right.equalTo(cell.contentView.snp_rightMargin)
+            }
+
+            self.amountTextField = textField
+
+        case 1:
+            let textField = UITextField()
+            textField.textAlignment = .Center
+            textField.placeholder = "Title (Optional)"
+            if self.bill?.title != nil {
+                textField.text = self.bill!.title!
+            }
+            cell.contentView.addSubview(textField)
+            textField.snp_makeConstraints { make in
+                make.top.equalTo(cell.contentView.snp_topMargin)
+                make.left.equalTo(cell.contentView.snp_leftMargin)
+                make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+                make.right.equalTo(cell.contentView.snp_rightMargin)
+            }
+
+            self.titleTextField = textField
+            
+        case 2:
+            let button = UIButton.buttonWithType(.System) as UIButton
+            if self.bill != nil {
+                button.setTitle("Change", forState: .Normal)
+            } else {
+                button.setTitle("Add", forState: .Normal)
+            }
+            button.bk_addEventHandler({ [weak self](sender) in
+                self?.add(sender)
+                return
+                }, forControlEvents: .TouchUpInside)
+            cell.contentView.addSubview(button)
+            button.snp_makeConstraints({ (make) -> () in
+                make.top.equalTo(cell.contentView.snp_topMargin)
+                make.left.equalTo(cell.contentView.snp_leftMargin)
+                make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+                make.right.equalTo(cell.contentView.snp_rightMargin)
+            })
+        default:
+            break
+        }
+
         return cell
     }
     

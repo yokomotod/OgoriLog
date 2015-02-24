@@ -13,7 +13,7 @@ class Bill: NSManagedObject {
 
     @NSManaged var amount: NSNumber
     @NSManaged var timeStamp: NSDate
-    @NSManaged var title: String
+    @NSManaged var title: String?
     @NSManaged var identifier: NSNumber
     @NSManaged var friend: OgoriLog.Friend
 

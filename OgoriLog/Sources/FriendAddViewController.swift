@@ -12,6 +12,9 @@ import CoreData
 class FriendAddViewController: UITableViewController {
 
     var managedObjectContext: NSManagedObjectContext? = nil
+    var friend: Friend?
+
+    var nameTextField: UITextField?
 
     class func friendAddViewController() -> Self {
         return self.init(style: .Grouped)
@@ -20,8 +23,12 @@ class FriendAddViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
-        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { (sender) -> Void in
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            return
+        }) as? UIBarButtonItem
+
+
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
@@ -32,23 +39,31 @@ class FriendAddViewController: UITableViewController {
 
     // MARK: - Action
 
-    func done(sender: AnyObject) {
-        let context = self.managedObjectContext
-        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Friend", inManagedObjectContext: context!) as Friend
+    func add(sender: AnyObject) {
+        if self.nameTextField == nil || self.nameTextField!.text.isEmpty {
+            return
+        }
 
-        // If appropriate, configure the new managed object.
-        newManagedObject.identifier = newManagedObject.lastIdentifier() + 1;
-        newManagedObject.name = "Hoge"
-        newManagedObject.timeStamp = NSDate()
-        newManagedObject.totalBill = 0.0;
+        let name = self.nameTextField!.text
 
-        // Save the context.
-        var error: NSError? = nil
-        if !context!.save(&error) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            //println("Unresolved error \(error), \(error.userInfo)")
-            abort()
+        if self.friend != nil {
+            if self.friend!.name != name {
+                self.friend!.name = name
+
+                // Save the context.
+                var error: NSError? = nil
+                if !self.managedObjectContext!.save(&error) {
+                    abort()
+                }
+            }
+
+        } else {
+            Friend.friendWithName(name, context:self.managedObjectContext!)
+            // Save the context.
+            var error: NSError? = nil
+            if !self.managedObjectContext!.save(&error) {
+                abort()
+            }
         }
 
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
@@ -70,6 +85,48 @@ class FriendAddViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
+        cell.selectionStyle = .None
+
+        switch (indexPath.row) {
+        case 0:
+            let textField = UITextField()
+            textField.textAlignment = .Center
+            textField.placeholder = "Friend Name"
+            if self.friend != nil {
+                textField.text = self.friend!.name
+            }
+            cell.contentView.addSubview(textField)
+            textField.snp_makeConstraints { make in
+                make.top.equalTo(cell.contentView.snp_topMargin)
+                make.left.equalTo(cell.contentView.snp_leftMargin)
+                make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+                make.right.equalTo(cell.contentView.snp_rightMargin)
+            }
+
+            self.nameTextField = textField
+
+        case 1:
+            let button = UIButton.buttonWithType(.System) as UIButton
+            if self.friend != nil {
+                button.setTitle("Change", forState: .Normal)
+
+            } else {
+                button.setTitle("Add", forState: .Normal)
+            }
+            button.bk_addEventHandler({ [weak self](sender) in
+                self?.add(sender)
+                return
+            }, forControlEvents: .TouchUpInside)
+            cell.contentView.addSubview(button)
+            button.snp_makeConstraints({ (make) -> () in
+                make.top.equalTo(cell.contentView.snp_topMargin)
+                make.left.equalTo(cell.contentView.snp_leftMargin)
+                make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+                make.right.equalTo(cell.contentView.snp_rightMargin)
+            })
+        default:
+            break
+        }
 
         return cell
     }

@@ -65,10 +65,18 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
-        cell.textLabel!.text = object.amount.stringValue
+        let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
+        cell.textLabel!.text = bill.amount.stringValue
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let controller = BillAddViewController.billAddViewController()
+        controller.managedObjectContext = self.managedObjectContext
+        controller.friend = self.friend
+        controller.bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Bill
+
+        self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+    }
     // MARK: - Fetched results controller
 
     var fetchedResultsController: NSFetchedResultsController {

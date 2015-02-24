@@ -9,64 +9,108 @@
 import UIKit
 import CoreData
 
-class FriendListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class FriendListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext? = nil
 
+    var tableView: UITableView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.clearsSelectionOnViewWillAppear = false
+//            self.clearsSelectionOnViewWillAppear = false
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
+    }
+
+    override func loadView() {
+        super.loadView()
+
+        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+
+        self.view.backgroundColor = UIColor.whiteColor()
+
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+
+        let addFriendButton = UIButton.buttonWithType(.System) as UIButton
+        addFriendButton.setTitle("Add Friend", forState: .Normal)
+        addFriendButton.bk_addEventHandler({ sender in
+            let controller = FriendAddViewController.friendAddViewController()
+            controller.managedObjectContext = self.managedObjectContext
+            self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+            }, forControlEvents: .TouchUpInside)
+
+        self.view.addSubview(tableView)
+        self.view.addSubview(addFriendButton)
+
+        tableView.snp_makeConstraints { make in
+            make.top.equalTo(tableView.superview!.snp_top)
+            make.left.equalTo(tableView.superview!.snp_left)
+            make.right.equalTo(tableView.superview!.snp_right)
+            return
+        }
+        addFriendButton.snp_makeConstraints { make in
+            make.height.equalTo(60.0)
+
+            make.top.equalTo(tableView.snp_bottom)
+            make.left.equalTo(addFriendButton.superview!.snp_left)
+            make.right.equalTo(addFriendButton.superview!.snp_right)
+            make.bottom.equalTo(addFriendButton.superview!.snp_bottom)
+        }
+
+        self.tableView = tableView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addFriend:")
-        self.navigationItem.rightBarButtonItem = addButton
-
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let indexPath = self.tableView.indexPathForSelectedRow() {
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    func addFriend(sender: AnyObject) {
-        let controller = FriendAddViewController.friendAddViewController()
-        controller.managedObjectContext = self.managedObjectContext
-        self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+
+        self.tableView.setEditing(editing, animated: animated)
     }
 
     // MARK: - Table View
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.fetchedResultsController.sections?.count ?? 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let context = self.fetchedResultsController.managedObjectContext
             context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject)
@@ -82,15 +126,15 @@ class FriendListViewController: UITableViewController, NSFetchedResultsControlle
     }
 
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
-        cell.textLabel!.text = object.name
+        let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
+        cell.textLabel!.text = friend.name
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
         let controller = FriendDetailViewController()
         controller.managedObjectContext = self.managedObjectContext
-        controller.friend = object
+        controller.friend = friend
         controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
         controller.navigationItem.leftItemsSupplementBackButton = true
 
