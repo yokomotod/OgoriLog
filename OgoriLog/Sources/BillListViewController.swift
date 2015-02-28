@@ -69,7 +69,12 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
-        cell.textLabel!.text = bill.amount.stringValue
+        cell.textLabel!.text = formatBillString(abs(bill.amount.doubleValue))
+        if bill.amount.doubleValue >= 0 {
+            cell.textLabel?.textColor = UIColor.greenColor()
+        } else {
+            cell.textLabel?.textColor = UIColor.redColor()
+        }
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -72,7 +72,7 @@ class BillAddViewController: UITableViewController {
             textField.placeholder = "¥ 0"
             textField.keyboardType = .DecimalPad
             if self.bill != nil {
-                textField.text = self.bill!.amount.stringValue
+                textField.text = NSString(format: "%d", Int(fabs(self.bill!.amount.doubleValue)))
             }
             cell.contentView.addSubview(textField)
             textField.snp_makeConstraints { make in

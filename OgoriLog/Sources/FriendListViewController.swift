@@ -26,7 +26,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     override func loadView() {
         super.loadView()
 
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
         self.view.backgroundColor = UIColor.whiteColor()
 

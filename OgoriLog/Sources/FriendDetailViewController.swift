@@ -138,7 +138,7 @@ class FriendDetailViewController: UIViewController {
                     status = "Even"
                 }
 
-                let title = String(format: "%d %@", Int(totalBill), status)
+                let title = String(format: "%@ %@", formatBillString((abs(totalBill))), status)
 
                 button.setTitle(title, forState: .Normal)
             }
