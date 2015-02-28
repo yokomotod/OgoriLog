@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
+        UINavigationBar.appearance().barTintColor = ColorScheme.navigationBarColor()
+
         let splitViewController = UISplitViewController()
         splitViewController.delegate = self
 

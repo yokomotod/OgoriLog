@@ -34,6 +34,7 @@ class FriendDetailViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
 
         let nameButton = UIButton.buttonWithType(.System) as UIButton
+        nameButton.titleLabel?.font = UIFont.systemFontOfSize(20)
         nameButton.bk_addEventHandler({ [weak self] sender in
             let controller = FriendAddViewController.friendAddViewController()
             controller.managedObjectContext = self?.managedObjectContext
@@ -68,18 +69,22 @@ class FriendDetailViewController: UIViewController {
         self.view.addSubview(addBillButton)
         nameButton.snp_makeConstraints { [weak self] make in
             make.centerX.equalTo(nameButton.superview!)
-            make.top.equalTo(self!.topLayoutGuide).with.offset(80)
+            make.top.equalTo(self!.topLayoutGuide).with.offset(70)
+            make.height.equalTo(24)
         }
         graphView.snp_makeConstraints { make in
+            make.top.greaterThanOrEqualTo(nameButton.snp_bottom).with.offset(20)
             make.left.equalTo(addBillButton.superview!.snp_leftMargin)
             make.right.equalTo(addBillButton.superview!.snp_rightMargin)
-            make.width.equalTo(graphView.snp_height).and.multipliedBy(16.0/9.0)  // 16:9
-            make.top.equalTo(nameButton.snp_bottom).with.offset(20)
+            make.centerY.equalTo(graphView.superview!.snp_centerY).with.priority(999)
+            make.height.equalTo(graphView.snp_width).and.multipliedBy(9.0/16.0).with.priority(999)
+            make.height.lessThanOrEqualTo(graphView.snp_width).and.multipliedBy(9.0/16.0)  // 16:9
         }
 
         totalBillButton.snp_makeConstraints { make in
             make.centerX.equalTo(nameButton.superview!)
             make.top.equalTo(graphView.snp_bottom).with.offset(20)
+            make.bottom.lessThanOrEqualTo(addBillButton.snp_top).with.offset(-20)
         }
         addBillButton.snp_makeConstraints { make in
             make.height.equalTo(60.0)

@@ -26,6 +26,10 @@ class ColorScheme: NSObject {
         return rgb(0x8e, 0x8e, 0x93)
     }
 
+    class func navigationBarColor() -> UIColor {
+        return rgb(0xff, 0xff, 0xff)
+    }
+
     class func rgb(r: Int, _ g: Int, _ b: Int) -> UIColor {
         let red = CGFloat(r)/255.0
         let green = CGFloat(g)/255.0
