@@ -107,12 +107,7 @@ class FriendAddViewController: UITableViewController {
 
         case 1:
             let button = UIButton.buttonWithType(.System) as UIButton
-            if self.friend != nil {
-                button.setTitle("Change", forState: .Normal)
-
-            } else {
-                button.setTitle("Add", forState: .Normal)
-            }
+            button.setTitle("Save", forState: .Normal)
             button.bk_addEventHandler({ [weak self](sender) in
                 self?.add(sender)
                 return

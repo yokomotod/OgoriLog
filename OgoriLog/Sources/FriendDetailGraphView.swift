@@ -27,13 +27,14 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
     convenience init(friend: Friend, touchGraphBlock: () -> Void) {
         self.init()
 
-        self.analayzeBillArray(friend.billArray())
-        self.didTouchGraphBlock = touchGraphBlock
+        self.resetGraph(friend)
 
-        self.resetGraph()
+        self.didTouchGraphBlock = touchGraphBlock
     }
 
-    func resetGraph() {
+    func resetGraph(friend: Friend) {
+        self.analayzeBillArray(friend.billArray())
+
         if self.graphHostingView != nil {
             self.graphHostingView?.removeFromSuperview()
             self.graphHostingView = nil
@@ -164,10 +165,10 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         graph.paddingTop    = 0.0
         graph.paddingBottom = 0.0
 
-        graph.plotAreaFrame.paddingLeft   = 60.0
-        graph.plotAreaFrame.paddingTop    = 60.0
-        graph.plotAreaFrame.paddingRight  = 20.0
-        graph.plotAreaFrame.paddingBottom = 65.0
+        graph.plotAreaFrame.paddingLeft   = 30.0
+//        graph.plotAreaFrame.paddingTop    = 60.0
+//        graph.plotAreaFrame.paddingRight  = 20.0
+//        graph.plotAreaFrame.paddingBottom = 65.0
 
         //プロット間隔の設定
         let plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace

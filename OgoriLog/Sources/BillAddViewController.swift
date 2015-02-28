@@ -40,12 +40,20 @@ class BillAddViewController: UITableViewController {
 
     // MARK: - Action
 
-    func add(sender: AnyObject) {
+    func give(sender: AnyObject) {
+        self.save(1)
+    }
+
+    func get(sender: AnyObject) {
+        self.save(-1)
+    }
+
+    func save(multiplier: Double) {
         if self.amountTextField == nil || self.amountTextField!.text.isEmpty {
             return
         }
 
-        let amount = atof(self.amountTextField!.text)
+        let amount = atof(self.amountTextField!.text) * multiplier
         let title = self.titleTextField?.text
 
         if self.bill != nil {
@@ -92,6 +100,7 @@ class BillAddViewController: UITableViewController {
             let textField = UITextField()
             textField.textAlignment = .Center
             textField.placeholder = "¥ 0"
+            textField.keyboardType = .DecimalPad
             if self.bill != nil {
                 textField.text = self.bill!.amount.stringValue
             }
@@ -123,21 +132,32 @@ class BillAddViewController: UITableViewController {
             self.titleTextField = textField
             
         case 2:
-            let button = UIButton.buttonWithType(.System) as UIButton
-            if self.bill != nil {
-                button.setTitle("Change", forState: .Normal)
-            } else {
-                button.setTitle("Add", forState: .Normal)
-            }
-            button.bk_addEventHandler({ [weak self](sender) in
-                self?.add(sender)
+            let giveButton = UIButton.buttonWithType(.System) as UIButton
+            giveButton.setTitle("Give", forState: .Normal)
+            giveButton.bk_addEventHandler({ [weak self](sender) in
+                self?.give(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
-            cell.contentView.addSubview(button)
-            button.snp_makeConstraints({ (make) -> () in
+            let getButton = UIButton.buttonWithType(.System) as UIButton
+            getButton.setTitle("Get", forState: .Normal)
+            getButton.bk_addEventHandler({ [weak self](sender) in
+                self?.get(sender)
+                return
+                }, forControlEvents: .TouchUpInside)
+            cell.contentView.addSubview(giveButton)
+            cell.contentView.addSubview(getButton)
+            giveButton.snp_makeConstraints({ (make) -> () in
                 make.top.equalTo(cell.contentView.snp_topMargin)
-                make.left.equalTo(cell.contentView.snp_leftMargin)
                 make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+
+                make.left.equalTo(cell.contentView.snp_leftMargin)
+            })
+            getButton.snp_makeConstraints({ (make) -> () in
+                make.top.equalTo(cell.contentView.snp_topMargin)
+                make.bottom.equalTo(cell.contentView.snp_bottomMargin)
+
+                make.left.equalTo(giveButton.snp_right)
+                make.width.equalTo(giveButton.snp_width)
                 make.right.equalTo(cell.contentView.snp_rightMargin)
             })
         default:

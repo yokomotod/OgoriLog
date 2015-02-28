@@ -24,16 +24,8 @@ class FriendDetailViewController: UIViewController {
         }
     }
 
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let friend = self.friend {
-            if let button = self.nameButton {
-                button.setTitle(friend.name, forState: .Normal)
-            }
-            if let button = self.totalBillButton {
-                button.setTitle(friend.totalBill.stringValue, forState: .Normal)
-            }
-        }
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: nil)
     }
 
     override func loadView() {
@@ -81,7 +73,7 @@ class FriendDetailViewController: UIViewController {
         graphView.snp_makeConstraints { make in
             make.left.equalTo(addBillButton.superview!.snp_leftMargin)
             make.right.equalTo(addBillButton.superview!.snp_rightMargin)
-            make.height.equalTo(300)
+            make.width.equalTo(graphView.snp_height).and.multipliedBy(16.0/9.0)  // 16:9
             make.top.equalTo(nameButton.snp_bottom).with.offset(20)
         }
 
@@ -105,6 +97,11 @@ class FriendDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        NSNotificationCenter.defaultCenter().addObserverForName(NSManagedObjectContextObjectsDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] notification in
+            self?.configureView()
+            return
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -116,11 +113,39 @@ class FriendDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        self.graphView?.graphHostingView?.frame = CGRectMake(0, 0, self.graphView!.frame.size.width, self.graphView!.frame.size.height)
+        self.graphView!.graphHostingView!.frame = CGRectMake(0, 0, self.graphView!.frame.size.width, self.graphView!.frame.size.height)
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func configureView() {
+        // Update the user interface for the detail item.
+        if let friend = self.friend {
+            if let button = self.nameButton {
+                button.setTitle(friend.name, forState: .Normal)
+            }
+            if let button = self.totalBillButton {
+                let totalBill = friend.totalBill.doubleValue
+                var status: String
+                if totalBill > 0 {
+                    status = "Giving"
+                } else if totalBill < 0 {
+                    status = "Getting"
+                } else {
+                    status = "Even"
+                }
+
+                let title = String(format: "%d %@", Int(totalBill), status)
+
+                button.setTitle(title, forState: .Normal)
+            }
+            if let graph = self.graphView {
+                graph.resetGraph(self.friend)
+            }
+        }
     }
 
     func presentBillList() {

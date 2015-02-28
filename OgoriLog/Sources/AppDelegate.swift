@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         friendListViewController.managedObjectContext = self.managedObjectContext
         let friendListNavigationController = UINavigationController(rootViewController: friendListViewController)
 
-        let friendDetailNavigationController = UINavigationController(rootViewController: FriendDetailViewController())
+        let friendDetailNavigationController = UINavigationController(rootViewController: UIViewController())
         friendDetailNavigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
 
         splitViewController.viewControllers = [friendListNavigationController, friendDetailNavigationController]
@@ -73,16 +73,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: - Split view
 
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
-        if let secondaryAsNavController = secondaryViewController as? UINavigationController {
-            if let topAsFriendDetailController = secondaryAsNavController.topViewController as? FriendDetailViewController {
-                if topAsFriendDetailController.friend == nil {
-                    // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-                    return true
-                }
-            }
-        }
-        return false
+        return true
     }
+
     // MARK: - Core Data stack
 
     lazy var applicationDocumentsDirectory: NSURL = {
