@@ -165,7 +165,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         graph.paddingTop    = 0.0
         graph.paddingBottom = 0.0
 
-        graph.plotAreaFrame.paddingLeft   = 30.0
+        graph.plotAreaFrame.paddingLeft   = 10.0
 //        graph.plotAreaFrame.paddingTop    = 60.0
 //        graph.plotAreaFrame.paddingRight  = 20.0
 //        graph.plotAreaFrame.paddingBottom = 65.0
@@ -221,7 +221,9 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         //    y.titleOffset                 = 15.0f
         lineStyle.lineWidth = 0.5
         y.majorGridLineStyle = lineStyle
-        //    y.labelTextStyle = textStyle
+        let textStyle = CPTMutableTextStyle()
+        textStyle.color = CPTColor(CGColor: UIColor.clearColor().CGColor)  // instead of hidden
+        y.labelTextStyle = textStyle
         let formatter = NSNumberFormatter()
         formatter.maximumFractionDigits = 0
         y.labelFormatter = formatter
