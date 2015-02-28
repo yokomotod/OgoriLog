@@ -20,7 +20,7 @@ func formatBillString(double: Double) -> String {
 
 func formatDateString(date: NSDate) -> String {
     let formatter = NSDateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm::ss"
+    formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
     return formatter.stringFromDate(date)
 }
