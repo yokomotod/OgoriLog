@@ -47,6 +47,17 @@ extension Friend {
     }
 
     func calculateTotalBill() -> Double {
+
+        let billArray = self.billArray()
+        var totalBill = 0.0
+        for bill in billArray {
+            totalBill += bill.amount.doubleValue
+        }
+
+        return totalBill
+    }
+
+    func billArray() -> Array<Bill> {
         let fetchRequest = NSFetchRequest()
         // Edit the entity name as appropriate.
         let entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: self.managedObjectContext!)
@@ -54,13 +65,7 @@ extension Friend {
 
         fetchRequest.predicate = NSPredicate(format: "friend = %@", self)
 
-        let bills = self.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as Array<Bill>
-
-        var totalBill = 0.0
-        for bill in bills {
-            totalBill += bill.amount.doubleValue
-        }
-
-        return totalBill
+        return self.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as Array<Bill>
     }
+
 }

@@ -13,10 +13,11 @@ class FriendDetailViewController: UIViewController {
 
     var managedObjectContext: NSManagedObjectContext? = nil
     var nameButton: UIButton?
+    var graphView: FriendDetailGraphWrapperView?
     var totalBillButton: UIButton?
 
 
-    var friend: Friend? {
+    var friend: Friend! {
         didSet {
             // Update the view.
             self.configureView()
@@ -41,40 +42,52 @@ class FriendDetailViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
 
         let nameButton = UIButton.buttonWithType(.System) as UIButton
-        nameButton.bk_addEventHandler({ sender in
+        nameButton.bk_addEventHandler({ [weak self] sender in
             let controller = FriendAddViewController.friendAddViewController()
-            controller.managedObjectContext = self.managedObjectContext
-            controller.friend = self.friend
-            self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+            controller.managedObjectContext = self?.managedObjectContext
+            controller.friend = self?.friend
+            self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }, forControlEvents: .TouchUpInside)
 
+        let graphView = FriendDetailGraphWrapperView(friend: self.friend, touchGraphBlock: { [weak self] in
+            self?.presentBillList()
+            return
+        })
+        self.graphView = graphView
+
         let totalBillButton = UIButton.buttonWithType(.System) as UIButton
-        totalBillButton.bk_addEventHandler({ sender in
-            let controller = BillListViewController()
-            controller.managedObjectContext = self.managedObjectContext
-            controller.friend = self.friend
-            self.showDetailViewController(controller, sender: self)
+        totalBillButton.bk_addEventHandler({ [weak self] sender in
+            self?.presentBillList()
+            return
         }, forControlEvents: .TouchUpInside)
 
         let addBillButton = UIButton.buttonWithType(.System) as UIButton
         addBillButton.setTitle("Add Bill", forState: .Normal)
-        addBillButton.bk_addEventHandler({ sender in
+        addBillButton.bk_addEventHandler({ [weak self] sender in
             let controller = BillAddViewController.billAddViewController()
-            controller.managedObjectContext = self.managedObjectContext
-            controller.friend = self.friend
-            self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
-            }, forControlEvents: .TouchUpInside)
+            controller.managedObjectContext = self?.managedObjectContext
+            controller.friend = self?.friend
+            self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+        }, forControlEvents: .TouchUpInside)
 
         self.view.addSubview(nameButton)
+        self.view.addSubview(graphView)
         self.view.addSubview(totalBillButton)
         self.view.addSubview(addBillButton)
-        nameButton.snp_makeConstraints { make in
+        nameButton.snp_makeConstraints { [weak self] make in
             make.centerX.equalTo(nameButton.superview!)
-            make.bottom.equalTo(totalBillButton.snp_top)
+            make.top.equalTo(self!.topLayoutGuide).with.offset(80)
         }
+        graphView.snp_makeConstraints { make in
+            make.left.equalTo(addBillButton.superview!.snp_leftMargin)
+            make.right.equalTo(addBillButton.superview!.snp_rightMargin)
+            make.height.equalTo(300)
+            make.top.equalTo(nameButton.snp_bottom).with.offset(20)
+        }
+
         totalBillButton.snp_makeConstraints { make in
             make.centerX.equalTo(nameButton.superview!)
-            make.centerY.equalTo(nameButton.superview!)
+            make.top.equalTo(graphView.snp_bottom).with.offset(20)
         }
         addBillButton.snp_makeConstraints { make in
             make.height.equalTo(60.0)
@@ -85,6 +98,7 @@ class FriendDetailViewController: UIViewController {
         }
 
         self.nameButton = nameButton
+        self.graphView = graphView
         self.totalBillButton = totalBillButton
     }
 
@@ -98,10 +112,21 @@ class FriendDetailViewController: UIViewController {
 
         self.configureView()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        self.graphView?.graphHostingView?.frame = CGRectMake(0, 0, self.graphView!.frame.size.width, self.graphView!.frame.size.height)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    func presentBillList() {
+        let controller = BillListViewController()
+        controller.managedObjectContext = self.managedObjectContext
+        controller.friend = self.friend
+        self.showDetailViewController(controller, sender: self)
+    }
 }
-
