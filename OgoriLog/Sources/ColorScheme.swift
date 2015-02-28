@@ -18,6 +18,14 @@ class ColorScheme: NSObject {
         return rgb(0xff, 0x2d, 0x55)
     }
 
+    class func normalTextColor() -> UIColor {
+        return rgb(0x4a, 0x4a, 0x4a)
+    }
+
+    class func weakTextColor() -> UIColor {
+        return rgb(0x8e, 0x8e, 0x93)
+    }
+
     class func rgb(r: Int, _ g: Int, _ b: Int) -> UIColor {
         let red = CGFloat(r)/255.0
         let green = CGFloat(g)/255.0

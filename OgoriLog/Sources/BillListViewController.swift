@@ -19,7 +19,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.registerClass(BillListViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,13 +33,17 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         return self.fetchedResultsController.sections?.count ?? 0
     }
 
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 65.0
+    }
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as BillListViewCell
         self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
@@ -67,14 +71,9 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         }
     }
 
-    func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+    func configureCell(cell: BillListViewCell, atIndexPath indexPath: NSIndexPath) {
         let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
-        cell.textLabel!.text = formatBillString(abs(bill.amount.doubleValue))
-        if bill.amount.doubleValue >= 0 {
-            cell.textLabel?.textColor = ColorScheme.positiveColor()
-        } else {
-            cell.textLabel?.textColor = ColorScheme.negativeColor()
-        }
+        cell.configureView(bill)
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -148,7 +147,8 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
-            self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, atIndexPath: indexPath!)
+            let cell = tableView.cellForRowAtIndexPath(indexPath!) as BillListViewCell
+            self.configureCell(cell, atIndexPath: indexPath!)
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)

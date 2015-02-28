@@ -15,6 +15,7 @@
 		9E6CACB91A99A19200BFB4CB /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACB81A99A19200BFB4CB /* FriendDetailViewController.swift */; };
 		9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBD1A99A19200BFB4CB /* Images.xcassets */; };
 		9E6CACCD1A99A19200BFB4CB /* OgoriLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */; };
+		9E7B58221AA1DF50008EA82C /* FriendListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */; };
 		9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */; };
 		9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1B1A99F30200C406B8 /* Bill.swift */; };
 		9EB20B201A99F36300C406B8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1F1A99F36300C406B8 /* Friend.swift */; };
@@ -23,6 +24,7 @@
 		9ED0DF801A9CD12F0023CEDD /* FriendDetailGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED0DF7F1A9CD12F0023CEDD /* FriendDetailGraphView.swift */; };
 		9ED0DFB21AA1C4E10023CEDD /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED0DFB11AA1C4E10023CEDD /* StringUtil.swift */; };
 		9ED0DFB41AA1C9370023CEDD /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED0DFB31AA1C9370023CEDD /* ColorScheme.swift */; };
+		9ED0DFB61AA1CD450023CEDD /* BillListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED0DFB51AA1CD450023CEDD /* BillListViewCell.swift */; };
 		9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */; };
 		9EDA9CA01A99A8FC005CA922 /* OgoriLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */; };
 		9EDA9CAD1A99AF51005CA922 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDA9CAF1A99AF51005CA922 /* InfoPlist.strings */; };
@@ -54,6 +56,7 @@
 		9E6CACC61A99A19200BFB4CB /* OgoriLogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OgoriLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6CACCB1A99A19200BFB4CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OgoriLogTests.swift; sourceTree = "<group>"; };
+		9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
 		9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		9EB20B1B1A99F30200C406B8 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9EB20B1F1A99F36300C406B8 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 		9ED0DF7F1A9CD12F0023CEDD /* FriendDetailGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailGraphView.swift; sourceTree = "<group>"; };
 		9ED0DFB11AA1C4E10023CEDD /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
 		9ED0DFB31AA1C9370023CEDD /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
+		9ED0DFB51AA1CD450023CEDD /* BillListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewCell.swift; sourceTree = "<group>"; };
 		9EDA9C991A99A84A005CA922 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9EDA9C9F1A99A8FC005CA922 /* OgoriLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OgoriLog.xcdatamodel; sourceTree = "<group>"; };
 		9EDA9CA21A99AA94005CA922 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
@@ -162,12 +166,14 @@
 				9EB20B211A99F62D00C406B8 /* Bill+Helper.swift */,
 				9E2D6E011A99E837009F6DE3 /* BillAddViewController.swift */,
 				9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */,
+				9ED0DFB51AA1CD450023CEDD /* BillListViewCell.swift */,
 				9ED0DFB31AA1C9370023CEDD /* ColorScheme.swift */,
 				9EB20B1F1A99F36300C406B8 /* Friend.swift */,
 				9EB20B231A99F65300C406B8 /* Friend+Helper.swift */,
 				9E579AAE1A99E14B00AC3EA3 /* FriendAddViewController.swift */,
 				9ED0DF7F1A9CD12F0023CEDD /* FriendDetailGraphView.swift */,
 				9E6CACB81A99A19200BFB4CB /* FriendDetailViewController.swift */,
+				9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */,
 				9E6CACB61A99A19200BFB4CB /* FriendListViewController.swift */,
 				9ED0DFB11AA1C4E10023CEDD /* StringUtil.swift */,
 				9E579A921A99BABB00AC3EA3 /* UncaughtExceptionHandler.h */,
@@ -373,6 +379,7 @@
 				9E6CACB21A99A19200BFB4CB /* AppDelegate.swift in Sources */,
 				9ED0DFB21AA1C4E10023CEDD /* StringUtil.swift in Sources */,
 				9E579A941A99BABB00AC3EA3 /* UncaughtExceptionHandler.m in Sources */,
+				9E7B58221AA1DF50008EA82C /* FriendListViewCell.swift in Sources */,
 				9ED0DF801A9CD12F0023CEDD /* FriendDetailGraphView.swift in Sources */,
 				9E6CACB71A99A19200BFB4CB /* FriendListViewController.swift in Sources */,
 				9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */,
@@ -380,6 +387,7 @@
 				9EB20B221A99F62D00C406B8 /* Bill+Helper.swift in Sources */,
 				9E6CACB91A99A19200BFB4CB /* FriendDetailViewController.swift in Sources */,
 				9E2D6E021A99E837009F6DE3 /* BillAddViewController.swift in Sources */,
+				9ED0DFB61AA1CD450023CEDD /* BillListViewCell.swift in Sources */,
 				9EB20B201A99F36300C406B8 /* Friend.swift in Sources */,
 				9EDA9CA01A99A8FC005CA922 /* OgoriLog.xcdatamodeld in Sources */,
 				9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */,

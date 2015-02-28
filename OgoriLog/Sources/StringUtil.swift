@@ -17,3 +17,10 @@ func formatBillString(double: Double) -> String {
 
     return String(format: "¥ %@", formatter.stringFromNumber(NSNumber(double: double))!)
 }
+
+func formatDateString(date: NSDate) -> String {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm::ss"
+
+    return formatter.stringFromDate(date)
+}

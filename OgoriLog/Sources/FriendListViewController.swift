@@ -33,7 +33,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerClass(FriendListViewCell.self, forCellReuseIdentifier: "Cell")
 
         let addFriendButton = UIButton.buttonWithType(.System) as UIButton
         addFriendButton.setTitle("Add Friend", forState: .Normal)
@@ -99,8 +99,12 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         return sectionInfo.numberOfObjects
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 65.0
+    }
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as FriendListViewCell
         self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
@@ -125,9 +129,10 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-    func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+    func configureCell(cell: FriendListViewCell, atIndexPath indexPath: NSIndexPath) {
         let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
-        cell.textLabel!.text = friend.name
+
+        cell.configureView(friend)
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -198,14 +203,15 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
             case .Insert:
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+                self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
             case .Delete:
-                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+                self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             case .Update:
-                self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, atIndexPath: indexPath!)
+                let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as FriendListViewCell
+                self.configureCell(cell, atIndexPath: indexPath!)
             case .Move:
-                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+                self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+                self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
             default:
                 return
         }
