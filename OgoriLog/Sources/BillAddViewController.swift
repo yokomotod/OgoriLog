@@ -48,36 +48,6 @@ class BillAddViewController: UITableViewController {
         self.save(-1)
     }
 
-    func save(multiplier: Double) {
-        if self.amountTextField == nil || self.amountTextField!.text.isEmpty {
-            return
-        }
-
-        let amount = atof(self.amountTextField!.text) * multiplier
-        let title = self.titleTextField?.text
-
-        if self.bill != nil {
-            if self.bill!.amount != amount || self.bill!.title != title {
-                self.bill!.amount = amount
-                self.bill!.title = title
-                // Save the context.
-                var error: NSError? = nil
-                if !self.managedObjectContext!.save(&error) {
-                    abort()
-                }
-            }
-        } else {
-            self.friend?.addNewBill(amount, title)
-            // Save the context.
-            var error: NSError? = nil
-            if !self.managedObjectContext!.save(&error) {
-                abort()
-            }
-        }
-
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -166,5 +136,37 @@ class BillAddViewController: UITableViewController {
 
         return cell
     }
-    
+
+    func save(multiplier: Double) {
+        if self.amountTextField == nil || self.amountTextField!.text.isEmpty {
+            return
+        }
+
+        let amount = atof(self.amountTextField!.text) * multiplier
+        let title = self.titleTextField?.text
+
+        if self.bill != nil {
+            if self.bill!.amount != amount || self.bill!.title != title {
+                self.bill!.amount = amount
+                self.bill!.title = title
+
+                self.friend!.totalBill = self.friend!.calculateTotalBill()
+
+                // Save the context.
+                var error: NSError? = nil
+                if !self.managedObjectContext!.save(&error) {
+                    abort()
+                }
+            }
+        } else {
+            self.friend?.addNewBill(amount, title)
+            // Save the context.
+            var error: NSError? = nil
+            if !self.managedObjectContext!.save(&error) {
+                abort()
+            }
+        }
+
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

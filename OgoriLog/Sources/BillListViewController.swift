@@ -52,7 +52,10 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let context = self.fetchedResultsController.managedObjectContext
-            context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject)
+            let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
+            context.deleteObject(bill)
+
+            self.friend!.totalBill = self.friend!.calculateTotalBill()
 
             var error: NSError? = nil
             if !context.save(&error) {
