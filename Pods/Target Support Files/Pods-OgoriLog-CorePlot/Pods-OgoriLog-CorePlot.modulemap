@@ -1,0 +1,6 @@
+framework module CorePlot {
+  umbrella header "Pods-OgoriLog-CorePlot-umbrella.h"
+
+  export *
+  module * { export * }
+}

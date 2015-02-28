@@ -14,14 +14,27 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - CorePlot (99.99.99)
   - Snap (0.0.6)
 
 DEPENDENCIES:
   - BlocksKit
+  - CorePlot (from `https://github.com/core-plot/core-plot.git`, branch `release-2.0`)
   - Snap
+
+EXTERNAL SOURCES:
+  CorePlot:
+    :branch: release-2.0
+    :git: https://github.com/core-plot/core-plot.git
+
+CHECKOUT OPTIONS:
+  CorePlot:
+    :commit: d8ac0e7cc26faf839ed111debbbe17ab30403775
+    :git: https://github.com/core-plot/core-plot.git
 
 SPEC CHECKSUMS:
   BlocksKit: 4439e7f30a9f90743462ca63545a15c1f4304cef
+  CorePlot: 80c046fdb3f9f44c73a5ca5887c54ded52510105
   Snap: 8930faf14165047799c47a46ee4bab0b1f85b54b
 
 COCOAPODS: 0.36.0.beta.2

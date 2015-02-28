@@ -49,9 +49,11 @@ code_sign() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'BlocksKit.framework'
+  install_framework 'CorePlot.framework'
   install_framework 'Snap.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'BlocksKit.framework'
+  install_framework 'CorePlot.framework'
   install_framework 'Snap.framework'
 fi
