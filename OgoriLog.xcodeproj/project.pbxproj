@@ -16,6 +16,8 @@
 		9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6CACBD1A99A19200BFB4CB /* Images.xcassets */; };
 		9E6CACCD1A99A19200BFB4CB /* OgoriLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */; };
 		9E7B58221AA1DF50008EA82C /* FriendListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */; };
+		9EAB0C3D1AA1FC1100956317 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */; };
+		9EAB0C3E1AA1FC1100956317 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3C1AA1FC1100956317 /* Fabric.framework */; };
 		9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */; };
 		9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1B1A99F30200C406B8 /* Bill.swift */; };
 		9EB20B201A99F36300C406B8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1F1A99F36300C406B8 /* Friend.swift */; };
@@ -57,6 +59,8 @@
 		9E6CACCB1A99A19200BFB4CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E6CACCC1A99A19200BFB4CB /* OgoriLogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OgoriLogTests.swift; sourceTree = "<group>"; };
 		9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
+		9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		9EAB0C3C1AA1FC1100956317 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		9EB20B1B1A99F30200C406B8 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9EB20B1F1A99F36300C406B8 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -86,7 +90,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EAB0C3D1AA1FC1100956317 /* Crashlytics.framework in Frameworks */,
 				C2CF8A9B9CF9486E0D300CE7 /* Pods_OgoriLog.framework in Frameworks */,
+				9EAB0C3E1AA1FC1100956317 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +121,7 @@
 				9E6CACC91A99A19200BFB4CB /* OgoriLogTests */,
 				9E6CACAD1A99A19200BFB4CB /* Products */,
 				6D6111A814C91BDD77D80A3E /* Pods */,
+				9EAB0C3A1AA1FBEC00956317 /* Vendor */,
 				CC1F3B7F00E62A3435A973DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -199,6 +206,15 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		9EAB0C3A1AA1FBEC00956317 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */,
+				9EAB0C3C1AA1FC1100956317 /* Fabric.framework */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		9EDA9CA11A99AA73005CA922 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +252,7 @@
 				9E6CACAA1A99A19200BFB4CB /* Resources */,
 				57C3669153E4711AA229E6F4 /* Embed Pods Frameworks */,
 				CD311C0B969BC40223350B46 /* Copy Pods Resources */,
+				9E3B71991AA1EED400058F69 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -336,6 +353,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OgoriLog/Pods-OgoriLog-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9E3B71991AA1EED400058F69 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run b8b7fb7937fd0322774fdc20a3c6f81885683c87 1cf65c51f9d50569887093f5302e4d8cd5af5eb4e26ff022dd8ea319cdffaef4";
 		};
 		B01A8E1DDCDCA8B80106271E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

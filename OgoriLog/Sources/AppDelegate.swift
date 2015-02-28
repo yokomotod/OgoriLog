@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 
 import BlocksKit
+import Crashlytics
+import Fabric
 import Snap
 
 @UIApplicationMain
@@ -24,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         #if DEBUG
             NSSetUncaughtExceptionHandler(uncaughtExceptionHandlerPointer)
         #endif
+
+        Fabric.with([Crashlytics()])
 
         println(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first)
 
