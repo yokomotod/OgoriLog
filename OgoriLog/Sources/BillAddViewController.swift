@@ -17,6 +17,8 @@ class BillAddViewController: UITableViewController {
 
     var amountTextField: UITextField?
     var titleTextField: UITextField?
+    var giveButton: UIButton?
+    var getButton: UIButton?
 
     class func billAddViewController() -> Self {
         return self.init(style: .Grouped)
@@ -75,9 +77,18 @@ class BillAddViewController: UITableViewController {
             textField.textAlignment = .Center
             textField.placeholder = NSLocalizedString("Amount", comment: "")
             textField.keyboardType = .DecimalPad
+            textField.returnKeyType = .Done
+            textField.bk_shouldReturnBlock = { textField -> Bool in
+                textField.resignFirstResponder()
+                return true
+            }
             if self.bill != nil {
                 textField.text = NSString(format: "%d", Int(fabs(self.bill!.amount.doubleValue)))
             }
+            textField.bk_addEventHandler({ [weak self] sender in
+                self?.updateControlState()
+                return
+                }, forControlEvents: .EditingChanged)
             cell.contentView.addSubview(textField)
             textField.snp_makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp_topMargin)
@@ -92,9 +103,18 @@ class BillAddViewController: UITableViewController {
             let textField = UITextField()
             textField.textAlignment = .Center
             textField.placeholder = NSLocalizedString("Title", comment: "")
+            textField.returnKeyType = .Done
+            textField.bk_shouldReturnBlock = { textField -> Bool in
+                textField.resignFirstResponder()
+                return true
+            }
             if self.bill?.title != nil {
                 textField.text = self.bill!.title!
             }
+            textField.bk_addEventHandler({ [weak self] sender in
+                self?.updateControlState()
+                return
+                }, forControlEvents: .EditingChanged)
             cell.contentView.addSubview(textField)
             textField.snp_makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp_topMargin)
@@ -134,11 +154,33 @@ class BillAddViewController: UITableViewController {
                 make.width.equalTo(giveButton.snp_width)
                 make.right.equalTo(cell.contentView.snp_rightMargin)
             })
+            self.giveButton = giveButton
+            self.getButton = getButton
+
+            self.updateControlState()
         default:
             break
         }
 
         return cell
+    }
+
+    func updateControlState() {
+        if let amountTextField = self.amountTextField {
+            let amount = atof(amountTextField.text)
+            if 0 < amount && amount < 1000000 {
+                if let titleTextField = self.titleTextField {
+                    let count = countElements(titleTextField.text)
+                    if 0 <= count && count < 15 {
+                        self.giveButton?.enabled = true
+                        self.getButton?.enabled = true
+                        return
+                    }
+                }
+            }
+        }
+        self.giveButton?.enabled = false
+        self.getButton?.enabled = false
     }
 
     func save(multiplier: Double) {

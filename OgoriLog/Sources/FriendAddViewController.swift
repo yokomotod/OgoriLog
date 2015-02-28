@@ -15,6 +15,7 @@ class FriendAddViewController: UITableViewController {
     var friend: Friend?
 
     var nameTextField: UITextField?
+    var saveButton: UIButton?
 
     class func friendAddViewController() -> Self {
         return self.init(style: .Grouped)
@@ -96,9 +97,18 @@ class FriendAddViewController: UITableViewController {
             let textField = UITextField()
             textField.textAlignment = .Center
             textField.placeholder = NSLocalizedString("Name", comment: "")
+            textField.returnKeyType = .Done
+            textField.bk_shouldReturnBlock = { textField -> Bool in
+                textField.resignFirstResponder()
+                return true
+            }
             if self.friend != nil {
                 textField.text = self.friend!.name
             }
+            textField.bk_addEventHandler({ [weak self] sender in
+                self?.updateControlState()
+                return
+                }, forControlEvents: .EditingChanged)
             cell.contentView.addSubview(textField)
             textField.snp_makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp_topMargin)
@@ -110,24 +120,39 @@ class FriendAddViewController: UITableViewController {
             self.nameTextField = textField
 
         case 1:
-            let button = UIButton.buttonWithType(.System) as UIButton
-            button.setTitle(NSLocalizedString("Save", comment: ""), forState: .Normal)
-            button.bk_addEventHandler({ [weak self](sender) in
+            let saveButton = UIButton.buttonWithType(.System) as UIButton
+            saveButton.setTitle(NSLocalizedString("Save", comment: ""), forState: .Normal)
+            saveButton.bk_addEventHandler({ [weak self](sender) in
                 self?.add(sender)
                 return
             }, forControlEvents: .TouchUpInside)
-            cell.contentView.addSubview(button)
-            button.snp_makeConstraints({ (make) -> () in
+            cell.contentView.addSubview(saveButton)
+            saveButton.snp_makeConstraints({ (make) -> () in
                 make.top.equalTo(cell.contentView.snp_topMargin)
                 make.left.equalTo(cell.contentView.snp_leftMargin)
                 make.bottom.equalTo(cell.contentView.snp_bottomMargin)
                 make.right.equalTo(cell.contentView.snp_rightMargin)
             })
+            self.saveButton = saveButton
+
+            self.updateControlState()
         default:
             break
         }
 
         return cell
+    }
+
+    func updateControlState() {
+        if let nameTextField = self.nameTextField {
+            let count = countElements(nameTextField.text)
+            if 0 < count && count <= 15 {
+                self.saveButton?.enabled = true
+                return
+            }
+        }
+
+        self.saveButton?.enabled = false
     }
 
 }
