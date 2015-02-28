@@ -50,6 +50,8 @@ class BillListViewCell: UITableViewCell {
             make.left.equalTo(titleLabel.superview!.snp_leftMargin)
             make.bottom.equalTo(titleLabel.superview!.snp_bottomMargin)
         }
+        // FIXME: due to iOS8 SDK bug, UILayoutPriorityDefaultLow can't be used
+        titleLabel.setContentCompressionResistancePriority(250, forAxis: UILayoutConstraintAxis.Horizontal)
 
         amountLabel.snp_makeConstraints { make in
             make.left.equalTo(titleLabel.snp_right).offset(20)
