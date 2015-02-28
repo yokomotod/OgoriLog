@@ -128,16 +128,27 @@ class BillAddViewController: UITableViewController {
         case 2:
             let giveButton = UIButton.buttonWithType(.System) as UIButton
             giveButton.setTitle(NSLocalizedString("Give", comment: ""), forState: .Normal)
+            giveButton.setTitleColor(ColorScheme.positiveColor(), forState: .Normal)
+            giveButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
             giveButton.bk_addEventHandler({ [weak self](sender) in
                 self?.give(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
             let getButton = UIButton.buttonWithType(.System) as UIButton
             getButton.setTitle(NSLocalizedString("Get", comment: ""), forState: .Normal)
+            getButton.setTitleColor(ColorScheme.negativeColor(), forState: .Normal)
+            getButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
             getButton.bk_addEventHandler({ [weak self](sender) in
                 self?.get(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
+            if let bill = self.bill {
+                if bill.amount.doubleValue >= 0 {
+                    giveButton.titleLabel?.font = UIFont.systemFontOfSize(UIFont.buttonFontSize())
+                } else {
+                    getButton.titleLabel?.font = UIFont.systemFontOfSize(UIFont.buttonFontSize())
+                }
+            }
             cell.contentView.addSubview(giveButton)
             cell.contentView.addSubview(getButton)
             giveButton.snp_makeConstraints({ (make) -> () in

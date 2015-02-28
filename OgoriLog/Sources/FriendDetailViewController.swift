@@ -137,10 +137,13 @@ class FriendDetailViewController: UIViewController {
                 var status: String
                 if totalBill > 0 {
                     status = NSLocalizedString("Giving", comment: "")
+                    button.setTitleColor(ColorScheme.positiveColor(), forState: .Normal)
                 } else if totalBill < 0 {
                     status = NSLocalizedString("Getting", comment: "")
+                    button.setTitleColor(ColorScheme.negativeColor(), forState: .Normal)
                 } else {
                     status = NSLocalizedString("Even", comment: "")
+                    button.setTitleColor(ColorScheme.weakTextColor(), forState: .Normal)
                 }
 
                 let title = String(format: "%@ %@", formatBillString((abs(totalBill))), status)
