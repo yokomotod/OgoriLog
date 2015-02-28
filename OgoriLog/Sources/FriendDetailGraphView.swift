@@ -144,9 +144,9 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         let currentTotalBill = totalBillArray.last
 
         if currentTotalBill >= 0 {
-            return CPTColor(CGColor: UIColor.greenColor().CGColor)
+            return CPTColor(CGColor: ColorScheme.positiveColor().CGColor)
         } else {
-            return CPTColor(CGColor: UIColor.redColor().CGColor)
+            return CPTColor(CGColor: ColorScheme.negativeColor().CGColor)
         }
     }
 

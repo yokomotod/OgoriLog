@@ -71,9 +71,9 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
         cell.textLabel!.text = formatBillString(abs(bill.amount.doubleValue))
         if bill.amount.doubleValue >= 0 {
-            cell.textLabel?.textColor = UIColor.greenColor()
+            cell.textLabel?.textColor = ColorScheme.positiveColor()
         } else {
-            cell.textLabel?.textColor = UIColor.redColor()
+            cell.textLabel?.textColor = ColorScheme.negativeColor()
         }
     }
 
