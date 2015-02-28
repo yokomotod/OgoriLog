@@ -18,6 +18,7 @@
 		9E7B58221AA1DF50008EA82C /* FriendListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */; };
 		9EAB0C3D1AA1FC1100956317 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */; };
 		9EAB0C3E1AA1FC1100956317 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3C1AA1FC1100956317 /* Fabric.framework */; };
+		9EAB0C4D1AA22E1F00956317 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EAB0C4C1AA22E1F00956317 /* Localizable.strings */; };
 		9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */; };
 		9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1B1A99F30200C406B8 /* Bill.swift */; };
 		9EB20B201A99F36300C406B8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1F1A99F36300C406B8 /* Friend.swift */; };
@@ -61,6 +62,7 @@
 		9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
 		9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		9EAB0C3C1AA1FC1100956317 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		9EAB0C4C1AA22E1F00956317 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		9EB20B1B1A99F30200C406B8 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9EB20B1F1A99F36300C406B8 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				9E6CACB01A99A19200BFB4CB /* Info.plist */,
 				9EDA9CAF1A99AF51005CA922 /* InfoPlist.strings */,
 				9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */,
+				9EAB0C4C1AA22E1F00956317 /* Localizable.strings */,
 				9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */,
 			);
 			path = Resources;
@@ -324,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EDA9CAD1A99AF51005CA922 /* InfoPlist.strings in Resources */,
+				9EAB0C4D1AA22E1F00956317 /* Localizable.strings in Resources */,
 				9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */,
 				9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */,
 			);

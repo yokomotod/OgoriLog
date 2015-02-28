@@ -95,7 +95,7 @@ class FriendAddViewController: UITableViewController {
         case 0:
             let textField = UITextField()
             textField.textAlignment = .Center
-            textField.placeholder = "Friend Name"
+            textField.placeholder = NSLocalizedString("Name", comment: "")
             if self.friend != nil {
                 textField.text = self.friend!.name
             }
@@ -111,7 +111,7 @@ class FriendAddViewController: UITableViewController {
 
         case 1:
             let button = UIButton.buttonWithType(.System) as UIButton
-            button.setTitle("Save", forState: .Normal)
+            button.setTitle(NSLocalizedString("Save", comment: ""), forState: .Normal)
             button.bk_addEventHandler({ [weak self](sender) in
                 self?.add(sender)
                 return

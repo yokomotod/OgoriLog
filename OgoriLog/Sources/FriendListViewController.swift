@@ -36,7 +36,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         tableView.registerClass(FriendListViewCell.self, forCellReuseIdentifier: "Cell")
 
         let addFriendButton = UIButton.buttonWithType(.System) as UIButton
-        addFriendButton.setTitle("Add Friend", forState: .Normal)
+        addFriendButton.setTitle(NSLocalizedString("Add Friend", comment: ""), forState: .Normal)
         addFriendButton.bk_addEventHandler({ sender in
             let controller = FriendAddViewController.friendAddViewController()
             controller.managedObjectContext = self.managedObjectContext

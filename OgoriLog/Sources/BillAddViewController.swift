@@ -73,7 +73,7 @@ class BillAddViewController: UITableViewController {
         case 0:
             let textField = UITextField()
             textField.textAlignment = .Center
-            textField.placeholder = "¥ 0"
+            textField.placeholder = NSLocalizedString("Amount", comment: "")
             textField.keyboardType = .DecimalPad
             if self.bill != nil {
                 textField.text = NSString(format: "%d", Int(fabs(self.bill!.amount.doubleValue)))
@@ -91,7 +91,7 @@ class BillAddViewController: UITableViewController {
         case 1:
             let textField = UITextField()
             textField.textAlignment = .Center
-            textField.placeholder = "Title (Optional)"
+            textField.placeholder = NSLocalizedString("Title", comment: "")
             if self.bill?.title != nil {
                 textField.text = self.bill!.title!
             }
@@ -107,13 +107,13 @@ class BillAddViewController: UITableViewController {
             
         case 2:
             let giveButton = UIButton.buttonWithType(.System) as UIButton
-            giveButton.setTitle("Give", forState: .Normal)
+            giveButton.setTitle(NSLocalizedString("Give", comment: ""), forState: .Normal)
             giveButton.bk_addEventHandler({ [weak self](sender) in
                 self?.give(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
             let getButton = UIButton.buttonWithType(.System) as UIButton
-            getButton.setTitle("Get", forState: .Normal)
+            getButton.setTitle(NSLocalizedString("Get", comment: ""), forState: .Normal)
             getButton.bk_addEventHandler({ [weak self](sender) in
                 self?.get(sender)
                 return

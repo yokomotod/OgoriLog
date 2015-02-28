@@ -55,7 +55,7 @@ class FriendDetailViewController: UIViewController {
         }, forControlEvents: .TouchUpInside)
 
         let addBillButton = UIButton.buttonWithType(.System) as UIButton
-        addBillButton.setTitle("Add Bill", forState: .Normal)
+        addBillButton.setTitle(NSLocalizedString("Add Bill", comment: ""), forState: .Normal)
         addBillButton.bk_addEventHandler({ [weak self] sender in
             let controller = BillAddViewController.billAddViewController()
             controller.managedObjectContext = self?.managedObjectContext
@@ -136,11 +136,11 @@ class FriendDetailViewController: UIViewController {
                 let totalBill = friend.totalBill.doubleValue
                 var status: String
                 if totalBill > 0 {
-                    status = "Giving"
+                    status = NSLocalizedString("Giving", comment: "")
                 } else if totalBill < 0 {
-                    status = "Getting"
+                    status = NSLocalizedString("Getting", comment: "")
                 } else {
-                    status = "Even"
+                    status = NSLocalizedString("Even", comment: "")
                 }
 
                 let title = String(format: "%@ %@", formatBillString((abs(totalBill))), status)
