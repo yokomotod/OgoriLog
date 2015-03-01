@@ -15,7 +15,15 @@ func formatBillString(double: Double) -> String {
     formatter.groupingSeparator = ","
     formatter.groupingSize = 3
 
-    return String(format: "¥ %@", formatter.stringFromNumber(NSNumber(double: double))!)
+    let numberString = formatter.stringFromNumber(NSNumber(double: double)) ?? "0"
+    return String(format: "¥ %@", numberString)
+}
+
+func formatDoubleString(double: Double) -> String {
+    let formatter = NSNumberFormatter()
+    formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+
+    return formatter.stringFromNumber(NSNumber(double: double)) ?? "0"
 }
 
 func formatDateString(date: NSDate) -> String {

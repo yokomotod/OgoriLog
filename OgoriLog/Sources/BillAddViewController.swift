@@ -81,7 +81,7 @@ class BillAddViewController: UITableViewController {
                 return true
             }
             if let bill = self.bill {
-                textField.text = NSString(format: "%d", Int(fabs(bill.amount.doubleValue)))
+                textField.text = formatDoubleString(abs(bill.amount.doubleValue))
             }
             textField.bk_addEventHandler({ [weak self] sender in
                 self?.updateControlState()
