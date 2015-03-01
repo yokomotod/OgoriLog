@@ -16,7 +16,7 @@ func formatBillString(double: Double) -> String {
     formatter.groupingSize = 3
 
     let numberString = formatter.stringFromNumber(NSNumber(double: double)) ?? "0"
-    return String(format: "¥ %@", numberString)
+    return String(format: "%@ %@", NSLocalizedString("BillPrefix", comment: ""), numberString)
 }
 
 func formatDoubleString(double: Double) -> String {

@@ -73,7 +73,7 @@ class BillAddViewController: UITableViewController {
         case 0:
             let textField = UITextField()
             textField.textAlignment = .Center
-            textField.placeholder = NSLocalizedString("Amount", comment: "")
+            textField.placeholder = String(format: "%@ 0", NSLocalizedString("BillPrefix", comment: ""))
             textField.keyboardType = .DecimalPad
             textField.returnKeyType = .Done
             textField.bk_shouldReturnBlock = { textField -> Bool in

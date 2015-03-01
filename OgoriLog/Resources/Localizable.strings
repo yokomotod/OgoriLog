@@ -6,14 +6,13 @@
   Copyright (c) 2015 bookside.net. All rights reserved.
 */
 
-"OgoriLog" = "おごりログ";
+"BillPrefix" = "¥";
 
 "Add Friend" = "友達を追加";
 "Name" = "名前";
 "Save" = "保存";
 
 "Add Bill" = "新しいおごりを登録";
-"Amount" = "¥ 0";
 "Title" = "タイトル (オプション)";
 "Give" = "おごり";
 "Get" = "ごちそうさまです";
