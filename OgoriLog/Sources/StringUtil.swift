@@ -11,7 +11,7 @@ import Foundation
 
 func formatBillString(double: Double) -> String {
     let formatter = NSNumberFormatter()
-    formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+    formatter.numberStyle = .DecimalStyle
     formatter.groupingSeparator = ","
     formatter.groupingSize = 3
 
@@ -21,7 +21,7 @@ func formatBillString(double: Double) -> String {
 
 func formatDoubleString(double: Double) -> String {
     let formatter = NSNumberFormatter()
-    formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+    formatter.numberStyle = .NoStyle
 
     return formatter.stringFromNumber(NSNumber(double: double)) ?? "0"
 }
