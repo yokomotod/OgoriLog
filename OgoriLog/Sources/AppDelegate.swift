@@ -25,9 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         #if DEBUG
             NSSetUncaughtExceptionHandler(uncaughtExceptionHandlerPointer)
+        #else
+            Fabric.with([Crashlytics()])
         #endif
 
-        Fabric.with([Crashlytics()])
 
         println(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first)
 
