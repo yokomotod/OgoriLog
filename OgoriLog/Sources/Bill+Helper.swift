@@ -10,15 +10,15 @@ import Foundation
 import CoreData
 
 extension Bill {
-    func lastIdentifier() -> Int {
+    class func lastIdentifier(context: NSManagedObjectContext) -> Int {
         let fetchRequest = NSFetchRequest()
-        let entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: self.managedObjectContext!)
+        let entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: context)
         fetchRequest.entity = entity
         let sortDescriptor = NSSortDescriptor(key: "identifier", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
 
-        let lastBill = self.managedObjectContext?.executeFetchRequest(fetchRequest, error: nil)?.first as Bill?
+        let lastBill = context.executeFetchRequest(fetchRequest, error: nil)?.first as Bill?
         return lastBill != nil ? lastBill!.identifier.integerValue : -1
     }
 

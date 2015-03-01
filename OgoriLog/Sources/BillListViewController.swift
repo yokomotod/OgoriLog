@@ -61,7 +61,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
                 let bill = fetchedResultsController.objectAtIndexPath(indexPath) as Bill
                 context.deleteObject(context.objectWithID(bill.objectID))
 
-                friend.totalBill = friend.calculateTotalBill()
+                friend.totalBill = friend.calculateTotalBill(context)
 
                 CoreDataManager.sharedInstance.saveContext(context)
             }

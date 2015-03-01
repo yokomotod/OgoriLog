@@ -208,7 +208,7 @@ class BillAddViewController: UITableViewController {
                     bill.amount = amount
                     bill.title = title
 
-                    friend.totalBill = friend.calculateTotalBill()
+                    friend.totalBill = friend.calculateTotalBill(context)
 
                     CoreDataManager.sharedInstance.saveContext(context)
                 }
@@ -217,7 +217,7 @@ class BillAddViewController: UITableViewController {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
             let friend = self.friend
             context.performBlock { () in
-                friend.createNewBill(amount, title)
+                friend.createNewBill(context, amount: amount, title: title)
                 CoreDataManager.sharedInstance.saveContext(context)
             }
         }

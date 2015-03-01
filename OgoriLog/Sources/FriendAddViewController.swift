@@ -56,7 +56,7 @@ class FriendAddViewController: UITableViewController {
         } else {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
             context.performBlock { () in
-                Friend.friendWithName(name, context:context)
+                Friend.createNewFriend(context, name: name)
                 CoreDataManager.sharedInstance.saveContext(context)
             }
         }
