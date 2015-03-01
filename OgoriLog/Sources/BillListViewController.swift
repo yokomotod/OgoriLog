@@ -11,7 +11,7 @@ import CoreData
 
 class BillListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var friend: Friend?
+    var friend: Friend!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +55,13 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
-            context.performBlock{ () in
-
-                let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
+            let fetchedResultsController = self.fetchedResultsController
+            let friend = self.friend
+            context.performBlock { () in
+                let bill = fetchedResultsController.objectAtIndexPath(indexPath) as Bill
                 context.deleteObject(context.objectWithID(bill.objectID))
 
-                self.friend!.totalBill = self.friend!.calculateTotalBill()
+                friend.totalBill = friend.calculateTotalBill()
 
                 CoreDataManager.sharedInstance.saveContext(context)
             }
@@ -88,7 +89,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         // Edit the entity name as appropriate.
         fetchRequest.entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: context)
 
-        fetchRequest.predicate = NSPredicate(format: "friend = %@", context.objectWithID(self.friend!.objectID))
+        fetchRequest.predicate = NSPredicate(format: "friend = %@", context.objectWithID(self.friend.objectID))
 
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
@@ -101,7 +102,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: String(format: "BillList.%ld", self.friend!.identifier.integerValue))
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: String(format: "BillList.%ld", self.friend.identifier.integerValue))
         aFetchedResultsController.delegate = self
 
         var error: NSError? = nil

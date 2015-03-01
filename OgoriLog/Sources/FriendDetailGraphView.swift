@@ -35,9 +35,8 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
     func resetGraph(friend: Friend) {
         self.analayzeBillArray(friend.billArray())
 
-        if self.graphHostingView != nil {
-            self.graphHostingView?.removeFromSuperview()
-            self.graphHostingView = nil
+        if  let graphHostingView = self.graphHostingView {
+            graphHostingView.removeFromSuperview()
         }
 
         self.graphHostingView = self.friendDetailGraphHostingView()

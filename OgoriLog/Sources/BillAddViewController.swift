@@ -10,7 +10,7 @@ import UIKit
 
 class BillAddViewController: UITableViewController {
 
-    var friend: Friend?
+    var friend: Friend!
     var bill: Bill?
 
     var amountTextField: UITextField?
@@ -25,10 +25,10 @@ class BillAddViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { [weak self] sender in
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel) { [weak self] sender in
             self?.resignAllFirstResponder()
             self?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        }) as? UIBarButtonItem
+        } as? UIBarButtonItem
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -80,8 +80,8 @@ class BillAddViewController: UITableViewController {
                 textField.resignFirstResponder()
                 return true
             }
-            if self.bill != nil {
-                textField.text = NSString(format: "%d", Int(fabs(self.bill!.amount.doubleValue)))
+            if let bill = self.bill {
+                textField.text = NSString(format: "%d", Int(fabs(bill.amount.doubleValue)))
             }
             textField.bk_addEventHandler({ [weak self] sender in
                 self?.updateControlState()
@@ -106,8 +106,8 @@ class BillAddViewController: UITableViewController {
                 textField.resignFirstResponder()
                 return true
             }
-            if self.bill?.title != nil {
-                textField.text = self.bill!.title!
+            if let title = self.bill?.title {
+                textField.text = title
             }
             textField.bk_addEventHandler({ [weak self] sender in
                 self?.updateControlState()
@@ -128,7 +128,7 @@ class BillAddViewController: UITableViewController {
             giveButton.setTitle(NSLocalizedString("Give", comment: ""), forState: .Normal)
             giveButton.setTitleColor(ColorScheme.positiveColor(), forState: .Normal)
             giveButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
-            giveButton.bk_addEventHandler({ [weak self](sender) in
+            giveButton.bk_addEventHandler({ [weak self] sender in
                 self?.give(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
@@ -136,7 +136,7 @@ class BillAddViewController: UITableViewController {
             getButton.setTitle(NSLocalizedString("Get", comment: ""), forState: .Normal)
             getButton.setTitleColor(ColorScheme.negativeColor(), forState: .Normal)
             getButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
-            getButton.bk_addEventHandler({ [weak self](sender) in
+            getButton.bk_addEventHandler({ [weak self] sender in
                 self?.get(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
@@ -149,20 +149,20 @@ class BillAddViewController: UITableViewController {
             }
             cell.contentView.addSubview(giveButton)
             cell.contentView.addSubview(getButton)
-            giveButton.snp_makeConstraints({ (make) -> () in
+            giveButton.snp_makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp_topMargin)
                 make.bottom.equalTo(cell.contentView.snp_bottomMargin)
 
                 make.left.equalTo(cell.contentView.snp_leftMargin)
-            })
-            getButton.snp_makeConstraints({ (make) -> () in
+            }
+            getButton.snp_makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp_topMargin)
                 make.bottom.equalTo(cell.contentView.snp_bottomMargin)
 
                 make.left.equalTo(giveButton.snp_right)
                 make.width.equalTo(giveButton.snp_width)
                 make.right.equalTo(cell.contentView.snp_rightMargin)
-            })
+            }
             self.giveButton = giveButton
             self.getButton = getButton
 
@@ -200,27 +200,25 @@ class BillAddViewController: UITableViewController {
         let amount = atof(self.amountTextField!.text) * multiplier
         let title = self.titleTextField?.text
 
-        if self.bill != nil {
-            if self.bill!.amount != amount || self.bill!.title != title {
+        if let bill = self.bill {
+            if bill.amount != amount || bill.title != title {
                 let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
-                context.performBlock { [weak self] in
-                    if let weakSelf = self {
-                        weakSelf.bill!.amount = amount
-                        weakSelf.bill!.title = title
+                let friend = self.friend
+                context.performBlock { () in
+                    bill.amount = amount
+                    bill.title = title
 
-                        weakSelf.friend!.totalBill = weakSelf.friend!.calculateTotalBill()
+                    friend.totalBill = friend.calculateTotalBill()
 
-                        CoreDataManager.sharedInstance.saveContext(context)
-                    }
+                    CoreDataManager.sharedInstance.saveContext(context)
                 }
             }
         } else {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
-            context.performBlock { [weak self] in
-                if let weakSelf = self {
-                    weakSelf.friend!.createNewBill(amount, title)
-                    CoreDataManager.sharedInstance.saveContext(context)
-                }
+            let friend = self.friend
+            context.performBlock { () in
+                friend.createNewBill(amount, title)
+                CoreDataManager.sharedInstance.saveContext(context)
             }
         }
 

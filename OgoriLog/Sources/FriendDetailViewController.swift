@@ -34,10 +34,10 @@ class FriendDetailViewController: UIViewController {
             self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }, forControlEvents: .TouchUpInside)
 
-        let graphView = FriendDetailGraphWrapperView(friend: self.friend, touchGraphBlock: { [weak self] in
+        let graphView = FriendDetailGraphWrapperView(friend: self.friend) { [weak self] in
             self?.presentBillList()
             return
-        })
+        }
         self.graphView = graphView
 
         let totalBillButton = UIButton.buttonWithType(.System) as UIButton

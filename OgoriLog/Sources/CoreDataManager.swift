@@ -51,21 +51,21 @@ final class CoreDataManager {
             abort()
         }
 
-        self.mainManagedObjectContext.performBlock({ () in
+        self.mainManagedObjectContext.performBlock { () in
             var error: NSError? = nil
             if !self.mainManagedObjectContext.save(&error) {
                 NSLog("Unresolved error \(error), \(error!.userInfo)")
                 abort()
             }
 
-            self.writeManagedObjectContext.performBlock({ () in
+            self.writeManagedObjectContext.performBlock { () in
                 var error: NSError? = nil
                 if !self.writeManagedObjectContext.save(&error) {
                     NSLog("Unresolved error \(error), \(error!.userInfo)")
                     abort()
                 }
-            })
-        })
+            }
+        }
     }
 
     lazy var applicationDocumentsDirectory: NSURL = {

@@ -13,14 +13,6 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
 
     var tableView: UITableView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-//            self.clearsSelectionOnViewWillAppear = false
-            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
-    }
-
     override func loadView() {
         super.loadView()
 
@@ -35,9 +27,9 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
 
         let addFriendButton = UIButton.buttonWithType(.System) as UIButton
         addFriendButton.setTitle(NSLocalizedString("Add Friend", comment: ""), forState: .Normal)
-        addFriendButton.bk_addEventHandler({ sender in
+        addFriendButton.bk_addEventHandler({ [weak self] sender in
             let controller = FriendAddViewController.friendAddViewController()
-            self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+            self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
             }, forControlEvents: .TouchUpInside)
 
         self.view.addSubview(tableView)
@@ -47,7 +39,6 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
             make.top.equalTo(tableView.superview!.snp_top)
             make.left.equalTo(tableView.superview!.snp_left)
             make.right.equalTo(tableView.superview!.snp_right)
-            return
         }
         addFriendButton.snp_makeConstraints { make in
             make.height.equalTo(60.0)
@@ -115,17 +106,16 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         if editingStyle == .Delete {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
             let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
-            context.performBlock({ () in
+            context.performBlock { () in
                 context.deleteObject(context.objectWithID(friend.objectID))
 
                 CoreDataManager.sharedInstance.saveContext(context)
-            })
+            }
         }
     }
 
     func configureCell(cell: FriendListViewCell, atIndexPath indexPath: NSIndexPath) {
         let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
-
         cell.configureView(friend)
     }
 

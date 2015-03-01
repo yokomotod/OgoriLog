@@ -22,10 +22,10 @@ class FriendAddViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { [weak self] sender in
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel) { [weak self] sender in
             self?.resignAllFirstResponder()
             self?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        }) as? UIBarButtonItem
+        } as? UIBarButtonItem
 
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -45,22 +45,20 @@ class FriendAddViewController: UITableViewController {
 
         let name = self.nameTextField!.text
 
-        if self.friend != nil {
-            if self.friend!.name != name {
+        if let friend = self.friend {
+            if friend.name != name {
                 let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
                 context.performBlock { () in
-                    self.friend!.name = name
+                    friend.name = name
                     CoreDataManager.sharedInstance.saveContext(context)
                 }
             }
-
         } else {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
             context.performBlock { () in
                 Friend.friendWithName(name, context:context)
                 CoreDataManager.sharedInstance.saveContext(context)
             }
-
         }
 
         self.resignAllFirstResponder()
@@ -99,8 +97,8 @@ class FriendAddViewController: UITableViewController {
                 textField.resignFirstResponder()
                 return true
             }
-            if self.friend != nil {
-                textField.text = self.friend!.name
+            if let friend = self.friend {
+                textField.text = friend.name
             }
             textField.bk_addEventHandler({ [weak self] sender in
                 self?.updateControlState()
@@ -119,17 +117,17 @@ class FriendAddViewController: UITableViewController {
         case 1:
             let saveButton = UIButton.buttonWithType(.System) as UIButton
             saveButton.setTitle(NSLocalizedString("Save", comment: ""), forState: .Normal)
-            saveButton.bk_addEventHandler({ [weak self](sender) in
+            saveButton.bk_addEventHandler({ [weak self] sender in
                 self?.add(sender)
                 return
             }, forControlEvents: .TouchUpInside)
             cell.contentView.addSubview(saveButton)
-            saveButton.snp_makeConstraints({ (make) -> () in
+            saveButton.snp_makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp_topMargin)
                 make.left.equalTo(cell.contentView.snp_leftMargin)
                 make.bottom.equalTo(cell.contentView.snp_bottomMargin)
                 make.right.equalTo(cell.contentView.snp_rightMargin)
-            })
+            }
             self.saveButton = saveButton
 
             self.updateControlState()
