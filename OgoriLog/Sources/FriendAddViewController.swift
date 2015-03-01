@@ -22,9 +22,9 @@ class FriendAddViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { (sender) -> Void in
-            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-            return
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { [weak self] sender in
+            self?.resignAllFirstResponder()
+            self?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         }) as? UIBarButtonItem
 
 
@@ -63,6 +63,7 @@ class FriendAddViewController: UITableViewController {
 
         }
 
+        self.resignAllFirstResponder()
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -151,4 +152,11 @@ class FriendAddViewController: UITableViewController {
         self.saveButton?.enabled = false
     }
 
+    func resignAllFirstResponder() {
+        if let nameTextField = self.nameTextField {
+            if nameTextField.isFirstResponder() {
+                nameTextField.resignFirstResponder()
+            }
+        }
+    }
 }

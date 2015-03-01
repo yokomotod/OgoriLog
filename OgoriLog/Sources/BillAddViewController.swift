@@ -25,9 +25,9 @@ class BillAddViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { sender in
-            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-            return
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem().bk_initWithBarButtonSystemItem(.Cancel, handler: { [weak self] sender in
+            self?.resignAllFirstResponder()
+            self?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         }) as? UIBarButtonItem
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -224,6 +224,21 @@ class BillAddViewController: UITableViewController {
             }
         }
 
+        self.resignAllFirstResponder()
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func resignAllFirstResponder() {
+        if let amountTextField = self.amountTextField {
+            if amountTextField.isFirstResponder() {
+                amountTextField.resignFirstResponder()
+            }
+        }
+
+        if let titleTextField = self.titleTextField {
+            if titleTextField.isFirstResponder() {
+                titleTextField.resignFirstResponder()
+            }
+        }
     }
 }
