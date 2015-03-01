@@ -12,3 +12,7 @@ target 'OgoriLogTests' do
 
 end
 
+post_install do | installer |
+  require 'fileutils'
+  FileUtils.cp_r('Pods/Target Support Files/Pods-OgoriLog/Pods-OgoriLog-acknowledgements.plist', 'OgoriLog/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
+end

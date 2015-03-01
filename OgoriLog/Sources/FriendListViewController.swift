@@ -16,6 +16,13 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     override func loadView() {
         super.loadView()
 
+        let infoButton = UIButton.buttonWithType(.InfoLight) as UIButton
+        infoButton.bk_addEventHandler({ [weak self] sender in
+            let controller = AboutViewController.aboutViewController()
+            self?.showDetailViewController(UINavigationController(rootViewController: controller), sender: self)
+        }, forControlEvents: .TouchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: infoButton)
+
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
         self.view.backgroundColor = UIColor.whiteColor()

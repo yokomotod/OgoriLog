@@ -20,6 +20,9 @@
 		9EAB0C3E1AA1FC1100956317 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3C1AA1FC1100956317 /* Fabric.framework */; };
 		9EAB0C4D1AA22E1F00956317 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EAB0C4C1AA22E1F00956317 /* Localizable.strings */; };
 		9EAB0C4F1AA2F42800956317 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB0C4E1AA2F42800956317 /* CoreDataManager.swift */; };
+		9EAB0C541AA336B100956317 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB0C531AA336B100956317 /* AboutViewController.swift */; };
+		9EAB0C581AA35DE300956317 /* AcknowledgementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB0C571AA35DE300956317 /* AcknowledgementViewController.swift */; };
+		9EAB0C5A1AA3628500956317 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9EAB0C591AA3628500956317 /* Settings.bundle */; };
 		9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */; };
 		9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1B1A99F30200C406B8 /* Bill.swift */; };
 		9EB20B201A99F36300C406B8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1F1A99F36300C406B8 /* Friend.swift */; };
@@ -65,6 +68,9 @@
 		9EAB0C3C1AA1FC1100956317 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9EAB0C4C1AA22E1F00956317 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9EAB0C4E1AA2F42800956317 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		9EAB0C531AA336B100956317 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		9EAB0C571AA35DE300956317 /* AcknowledgementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementViewController.swift; sourceTree = "<group>"; };
+		9EAB0C591AA3628500956317 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		9EB20B1B1A99F30200C406B8 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9EB20B1F1A99F36300C406B8 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 				9EDA9C9A1A99A84A005CA922 /* LaunchScreen.xib */,
 				9EAB0C4C1AA22E1F00956317 /* Localizable.strings */,
 				9EDA9C9E1A99A8FC005CA922 /* OgoriLog.xcdatamodeld */,
+				9EAB0C591AA3628500956317 /* Settings.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -173,6 +180,8 @@
 		9E6CACD71A99A48300BFB4CB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9EAB0C531AA336B100956317 /* AboutViewController.swift */,
+				9EAB0C571AA35DE300956317 /* AcknowledgementViewController.swift */,
 				9E6CACB11A99A19200BFB4CB /* AppDelegate.swift */,
 				9EB20B1B1A99F30200C406B8 /* Bill.swift */,
 				9EB20B211A99F62D00C406B8 /* Bill+Helper.swift */,
@@ -188,10 +197,10 @@
 				9E6CACB81A99A19200BFB4CB /* FriendDetailViewController.swift */,
 				9E7B58211AA1DF50008EA82C /* FriendListViewCell.swift */,
 				9E6CACB61A99A19200BFB4CB /* FriendListViewController.swift */,
+				9E579A8F1A99BA9700AC3EA3 /* OgoriLog-Bridging-Header.h */,
 				9ED0DFB11AA1C4E10023CEDD /* StringUtil.swift */,
 				9E579A921A99BABB00AC3EA3 /* UncaughtExceptionHandler.h */,
 				9E579A931A99BABB00AC3EA3 /* UncaughtExceptionHandler.m */,
-				9E579A8F1A99BA9700AC3EA3 /* OgoriLog-Bridging-Header.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -259,6 +268,7 @@
 				57C3669153E4711AA229E6F4 /* Embed Pods Frameworks */,
 				CD311C0B969BC40223350B46 /* Copy Pods Resources */,
 				9E3B71991AA1EED400058F69 /* ShellScript */,
+				9EAB0C5B1AA3639600956317 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -331,6 +341,7 @@
 			files = (
 				9EDA9CAD1A99AF51005CA922 /* InfoPlist.strings in Resources */,
 				9EAB0C4D1AA22E1F00956317 /* Localizable.strings in Resources */,
+				9EAB0C5A1AA3628500956317 /* Settings.bundle in Resources */,
 				9EDA9C981A99A84A005CA922 /* LaunchScreen.xib in Resources */,
 				9E6CACBE1A99A19200BFB4CB /* Images.xcassets in Resources */,
 			);
@@ -373,6 +384,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Vendor/Fabric.framework/run b8b7fb7937fd0322774fdc20a3c6f81885683c87 1cf65c51f9d50569887093f5302e4d8cd5af5eb4e26ff022dd8ea319cdffaef4";
+		};
+		9EAB0C5B1AA3639600956317 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APP_VERSION=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" $PRODUCT_SETTINGS_PATH)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:1:DefaultValue ${APP_VERSION}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Settings.bundle/Root.plist\"\n";
 		};
 		B01A8E1DDCDCA8B80106271E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -424,11 +448,13 @@
 				9EB20B241A99F65300C406B8 /* Friend+Helper.swift in Sources */,
 				9EB20B221A99F62D00C406B8 /* Bill+Helper.swift in Sources */,
 				9E6CACB91A99A19200BFB4CB /* FriendDetailViewController.swift in Sources */,
+				9EAB0C581AA35DE300956317 /* AcknowledgementViewController.swift in Sources */,
 				9E2D6E021A99E837009F6DE3 /* BillAddViewController.swift in Sources */,
 				9ED0DFB61AA1CD450023CEDD /* BillListViewCell.swift in Sources */,
 				9EB20B201A99F36300C406B8 /* Friend.swift in Sources */,
 				9EDA9CA01A99A8FC005CA922 /* OgoriLog.xcdatamodeld in Sources */,
 				9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */,
+				9EAB0C541AA336B100956317 /* AboutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
