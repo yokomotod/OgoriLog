@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import CoreData
 
 class BillAddViewController: UITableViewController {
 
-    var managedObjectContext: NSManagedObjectContext? = nil
     var friend: Friend?
     var bill: Bill?
 
@@ -204,23 +202,25 @@ class BillAddViewController: UITableViewController {
 
         if self.bill != nil {
             if self.bill!.amount != amount || self.bill!.title != title {
-                self.bill!.amount = amount
-                self.bill!.title = title
+                let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
+                context.performBlock { [weak self] in
+                    if let weakSelf = self {
+                        weakSelf.bill!.amount = amount
+                        weakSelf.bill!.title = title
 
-                self.friend!.totalBill = self.friend!.calculateTotalBill()
+                        weakSelf.friend!.totalBill = weakSelf.friend!.calculateTotalBill()
 
-                // Save the context.
-                var error: NSError? = nil
-                if !self.managedObjectContext!.save(&error) {
-                    abort()
+                        CoreDataManager.sharedInstance.saveContext(context)
+                    }
                 }
             }
         } else {
-            self.friend?.addNewBill(amount, title)
-            // Save the context.
-            var error: NSError? = nil
-            if !self.managedObjectContext!.save(&error) {
-                abort()
+            let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
+            context.performBlock { [weak self] in
+                if let weakSelf = self {
+                    weakSelf.friend!.createNewBill(amount, title)
+                    CoreDataManager.sharedInstance.saveContext(context)
+                }
             }
         }
 

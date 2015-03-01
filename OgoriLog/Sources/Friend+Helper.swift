@@ -11,14 +11,16 @@ import CoreData
 
 extension Friend {
 
-    class func friendWithName(name: String, context: NSManagedObjectContext) {
-        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Friend", inManagedObjectContext: context) as Friend
+    class func friendWithName(name: String, context: NSManagedObjectContext) -> Friend {
+        let newFriend = NSEntityDescription.insertNewObjectForEntityForName("Friend", inManagedObjectContext: context) as Friend
 
         // If appropriate, configure the new managed object.
-        newManagedObject.identifier = newManagedObject.lastIdentifier() + 1;
-        newManagedObject.name = name
-        newManagedObject.timeStamp = NSDate()
-        newManagedObject.totalBill = 0.0;
+        newFriend.identifier = newFriend.lastIdentifier() + 1;
+        newFriend.name = name
+        newFriend.timeStamp = NSDate()
+        newFriend.totalBill = 0.0;
+
+        return newFriend
     }
 
     func lastIdentifier() -> Int {
@@ -33,7 +35,7 @@ extension Friend {
         return lastFriend != nil ? lastFriend!.identifier.integerValue : -1
     }
 
-    func addNewBill(amount: Double, _ title: String?) {
+    func createNewBill(amount: Double, _ title: String?) -> Bill {
         let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: self.managedObjectContext!) as Bill
 
         // If appropriate, configure the new managed object.
@@ -41,9 +43,11 @@ extension Friend {
         newBill.amount = amount
         newBill.timeStamp = NSDate()
         newBill.title = title;
-        newBill.friend = self
+        newBill.friend = self.managedObjectContext!.objectWithID(self.objectID) as Friend
 
         self.totalBill = self.calculateTotalBill()
+
+        return newBill
     }
 
     func calculateTotalBill() -> Double {

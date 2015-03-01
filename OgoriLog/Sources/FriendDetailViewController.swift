@@ -11,18 +11,11 @@ import CoreData
 
 class FriendDetailViewController: UIViewController {
 
-    var managedObjectContext: NSManagedObjectContext? = nil
+    var friend: Friend!
+
     var nameButton: UIButton?
     var graphView: FriendDetailGraphWrapperView?
     var totalBillButton: UIButton?
-
-
-    var friend: Friend! {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
-    }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSManagedObjectContextObjectsDidChangeNotification, object: nil)
@@ -37,7 +30,6 @@ class FriendDetailViewController: UIViewController {
         nameButton.titleLabel?.font = UIFont.systemFontOfSize(20)
         nameButton.bk_addEventHandler({ [weak self] sender in
             let controller = FriendAddViewController.friendAddViewController()
-            controller.managedObjectContext = self?.managedObjectContext
             controller.friend = self?.friend
             self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }, forControlEvents: .TouchUpInside)
@@ -58,7 +50,6 @@ class FriendDetailViewController: UIViewController {
         addBillButton.setTitle(NSLocalizedString("Add Bill", comment: ""), forState: .Normal)
         addBillButton.bk_addEventHandler({ [weak self] sender in
             let controller = BillAddViewController.billAddViewController()
-            controller.managedObjectContext = self?.managedObjectContext
             controller.friend = self?.friend
             self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }, forControlEvents: .TouchUpInside)
@@ -158,7 +149,6 @@ class FriendDetailViewController: UIViewController {
 
     func presentBillList() {
         let controller = BillListViewController()
-        controller.managedObjectContext = self.managedObjectContext
         controller.friend = self.friend
         self.showDetailViewController(controller, sender: self)
     }

@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import CoreData
 
 class FriendAddViewController: UITableViewController {
 
-    var managedObjectContext: NSManagedObjectContext? = nil
     var friend: Friend?
 
     var nameTextField: UITextField?
@@ -49,22 +47,20 @@ class FriendAddViewController: UITableViewController {
 
         if self.friend != nil {
             if self.friend!.name != name {
-                self.friend!.name = name
-
-                // Save the context.
-                var error: NSError? = nil
-                if !self.managedObjectContext!.save(&error) {
-                    abort()
+                let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
+                context.performBlock { () in
+                    self.friend!.name = name
+                    CoreDataManager.sharedInstance.saveContext(context)
                 }
             }
 
         } else {
-            Friend.friendWithName(name, context:self.managedObjectContext!)
-            // Save the context.
-            var error: NSError? = nil
-            if !self.managedObjectContext!.save(&error) {
-                abort()
+            let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
+            context.performBlock { () in
+                Friend.friendWithName(name, context:context)
+                CoreDataManager.sharedInstance.saveContext(context)
             }
+
         }
 
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

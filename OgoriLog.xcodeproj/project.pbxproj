@@ -19,6 +19,7 @@
 		9EAB0C3D1AA1FC1100956317 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */; };
 		9EAB0C3E1AA1FC1100956317 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB0C3C1AA1FC1100956317 /* Fabric.framework */; };
 		9EAB0C4D1AA22E1F00956317 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EAB0C4C1AA22E1F00956317 /* Localizable.strings */; };
+		9EAB0C4F1AA2F42800956317 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB0C4E1AA2F42800956317 /* CoreDataManager.swift */; };
 		9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */; };
 		9EB20B1C1A99F30200C406B8 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1B1A99F30200C406B8 /* Bill.swift */; };
 		9EB20B201A99F36300C406B8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB20B1F1A99F36300C406B8 /* Friend.swift */; };
@@ -63,6 +64,7 @@
 		9EAB0C3B1AA1FC1100956317 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		9EAB0C3C1AA1FC1100956317 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9EAB0C4C1AA22E1F00956317 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		9EAB0C4E1AA2F42800956317 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		9EB20B1B1A99F30200C406B8 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9EB20B1F1A99F36300C406B8 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				9EB20B151A99EEDE00C406B8 /* BillListViewController.swift */,
 				9ED0DFB51AA1CD450023CEDD /* BillListViewCell.swift */,
 				9ED0DFB31AA1C9370023CEDD /* ColorScheme.swift */,
+				9EAB0C4E1AA2F42800956317 /* CoreDataManager.swift */,
 				9EB20B1F1A99F36300C406B8 /* Friend.swift */,
 				9EB20B231A99F65300C406B8 /* Friend+Helper.swift */,
 				9E579AAE1A99E14B00AC3EA3 /* FriendAddViewController.swift */,
@@ -414,6 +417,7 @@
 				9ED0DFB21AA1C4E10023CEDD /* StringUtil.swift in Sources */,
 				9E579A941A99BABB00AC3EA3 /* UncaughtExceptionHandler.m in Sources */,
 				9E7B58221AA1DF50008EA82C /* FriendListViewCell.swift in Sources */,
+				9EAB0C4F1AA2F42800956317 /* CoreDataManager.swift in Sources */,
 				9ED0DF801A9CD12F0023CEDD /* FriendDetailGraphView.swift in Sources */,
 				9E6CACB71A99A19200BFB4CB /* FriendListViewController.swift in Sources */,
 				9EB20B161A99EEDE00C406B8 /* BillListViewController.swift in Sources */,

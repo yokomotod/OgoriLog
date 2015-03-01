@@ -11,8 +11,6 @@ import CoreData
 
 class FriendListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
 
-    var managedObjectContext: NSManagedObjectContext? = nil
-
     var tableView: UITableView!
 
     override func awakeFromNib() {
@@ -39,7 +37,6 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         addFriendButton.setTitle(NSLocalizedString("Add Friend", comment: ""), forState: .Normal)
         addFriendButton.bk_addEventHandler({ sender in
             let controller = FriendAddViewController.friendAddViewController()
-            controller.managedObjectContext = self.managedObjectContext
             self.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
             }, forControlEvents: .TouchUpInside)
 
@@ -116,16 +113,13 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let context = self.fetchedResultsController.managedObjectContext
-            context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject)
-                
-            var error: NSError? = nil
-            if !context.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                //println("Unresolved error \(error), \(error.userInfo)")
-                abort()
-            }
+            let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
+            let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
+            context.performBlock({ () in
+                context.deleteObject(context.objectWithID(friend.objectID))
+
+                CoreDataManager.sharedInstance.saveContext(context)
+            })
         }
     }
 
@@ -138,7 +132,6 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
         let controller = FriendDetailViewController()
-        controller.managedObjectContext = self.managedObjectContext
         controller.friend = friend
         controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
         controller.navigationItem.leftItemsSupplementBackButton = true
@@ -148,15 +141,12 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
 
     // MARK: - Fetched results controller
 
-    var fetchedResultsController: NSFetchedResultsController {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let context = CoreDataManager.sharedInstance.mainManagedObjectContext
+
         let fetchRequest = NSFetchRequest()
         // Edit the entity name as appropriate.
-        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: self.managedObjectContext!)
-        fetchRequest.entity = entity
+        fetchRequest.entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: context)
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
@@ -169,21 +159,19 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "FriendList")
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: "FriendList")
         aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
-        
-    	var error: NSError? = nil
-    	if !_fetchedResultsController!.performFetch(&error) {
-    	     // Replace this implementation with code to handle the error appropriately.
-    	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             //println("Unresolved error \(error), \(error.userInfo)")
-    	     abort()
-    	}
-        
-        return _fetchedResultsController!
-    }    
-    var _fetchedResultsController: NSFetchedResultsController? = nil
+
+        var error: NSError? = nil
+        if !aFetchedResultsController.performFetch(&error) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            //println("Unresolved error \(error), \(error.userInfo)")
+            abort()
+        }
+
+        return aFetchedResultsController
+    }()
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView.beginUpdates()
@@ -220,15 +208,5 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
     }
-
-    /*
-     // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
-     
-     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-         // In the simplest, most efficient, case, reload the table view.
-         self.tableView.reloadData()
-     }
-     */
-
 }
 

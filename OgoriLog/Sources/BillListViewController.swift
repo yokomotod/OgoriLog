@@ -11,7 +11,6 @@ import CoreData
 
 class BillListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var managedObjectContext: NSManagedObjectContext? = nil
     var friend: Friend?
 
     override func viewDidLoad() {
@@ -55,18 +54,15 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let context = self.fetchedResultsController.managedObjectContext
-            let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
-            context.deleteObject(bill)
+            let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
+            context.performBlock{ () in
 
-            self.friend!.totalBill = self.friend!.calculateTotalBill()
+                let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
+                context.deleteObject(context.objectWithID(bill.objectID))
 
-            var error: NSError? = nil
-            if !context.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                //println("Unresolved error \(error), \(error.userInfo)")
-                abort()
+                self.friend!.totalBill = self.friend!.calculateTotalBill()
+
+                CoreDataManager.sharedInstance.saveContext(context)
             }
         }
     }
@@ -78,7 +74,6 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let controller = BillAddViewController.billAddViewController()
-        controller.managedObjectContext = self.managedObjectContext
         controller.friend = self.friend
         controller.bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Bill
 
@@ -86,17 +81,14 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     }
     // MARK: - Fetched results controller
 
-    var fetchedResultsController: NSFetchedResultsController {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let context = CoreDataManager.sharedInstance.mainManagedObjectContext
 
         let fetchRequest = NSFetchRequest()
         // Edit the entity name as appropriate.
-        let entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: self.managedObjectContext!)
-        fetchRequest.entity = entity
+        fetchRequest.entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: context)
 
-        fetchRequest.predicate = NSPredicate(format: "friend = %@", self.friend!)
+        fetchRequest.predicate = NSPredicate(format: "friend = %@", context.objectWithID(self.friend!.objectID))
 
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
@@ -109,21 +101,19 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: String(format: "BillList.%ld", self.friend!.identifier.integerValue))
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: String(format: "BillList.%ld", self.friend!.identifier.integerValue))
         aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
 
         var error: NSError? = nil
-        if !_fetchedResultsController!.performFetch(&error) {
+        if !aFetchedResultsController.performFetch(&error) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             //println("Unresolved error \(error), \(error.userInfo)")
             abort()
         }
 
-        return _fetchedResultsController!
-    }
-    var _fetchedResultsController: NSFetchedResultsController? = nil
+        return aFetchedResultsController
+    }()
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView.beginUpdates()
@@ -160,15 +150,5 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
     }
-
-    /*
-    // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
-
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-    // In the simplest, most efficient, case, reload the table view.
-    self.tableView.reloadData()
-    }
-    */
-    
 }
 
