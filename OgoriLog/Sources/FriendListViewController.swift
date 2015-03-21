@@ -57,6 +57,8 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         }
 
         self.tableView = tableView
+
+        self.updateControlState()
     }
 
     override func viewDidLoad() {
@@ -81,6 +83,8 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         super.setEditing(editing, animated: animated)
 
         self.tableView.setEditing(editing, animated: animated)
+
+        self.updateControlState()
     }
 
     // MARK: - Table View
@@ -204,6 +208,30 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
+
+        self.updateControlState()
+    }
+
+    // MARK: - Private
+
+    func updateControlState() {
+
+        if self.editing {
+            // Enabled during editing
+            self.navigationItem.rightBarButtonItem?.enabled = true
+            return
+        }
+
+        if let numberOfObjects = self.fetchedResultsController.sections?.first?.numberOfObjects {
+            if numberOfObjects > 0 {
+                // Enabled if friend exists
+                self.navigationItem.rightBarButtonItem?.enabled = true
+                return
+            }
+        }
+
+        // Otherwise, Disabled
+        self.navigationItem.rightBarButtonItem?.enabled = false
     }
 }
 

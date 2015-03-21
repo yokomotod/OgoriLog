@@ -19,6 +19,8 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
         self.tableView.registerClass(BillListViewCell.self, forCellReuseIdentifier: "Cell")
+
+        self.updateControlState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +28,11 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         // Dispose of any resources that can be recreated.
     }
 
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+
+        self.updateControlState()
+    }
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -150,6 +157,31 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
+
+        self.updateControlState()
     }
+
+    // MARK: - Private
+
+    func updateControlState() {
+
+        if self.editing {
+            // Enabled during editing
+            self.navigationItem.rightBarButtonItem?.enabled = true
+            return
+        }
+
+        if let numberOfObjects = self.fetchedResultsController.sections?.first?.numberOfObjects {
+            if numberOfObjects > 0 {
+                // Enabled if friend exists
+                self.navigationItem.rightBarButtonItem?.enabled = true
+                return
+            }
+        }
+
+        // Otherwise, Disabled
+        self.navigationItem.rightBarButtonItem?.enabled = false
+    }
+
 }
 
