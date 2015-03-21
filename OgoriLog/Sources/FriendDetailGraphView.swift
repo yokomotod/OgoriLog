@@ -19,6 +19,9 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
     var yPlotRange: CPTPlotRange!
     var yMajorIntervalLength: Int!
     var lineColor : CPTColor!
+    var fillGradientBeginningColor : CPTColor!
+    var fillGradientEndingColor : CPTColor!
+
 
     var didTouchGraphBlock: (() -> Void)!
 
@@ -46,19 +49,15 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
 
     // mark Plot Data Source Methods
 
-    // グラフに使用する折れ線グラフのデータ数を返す
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
-        // 折れ線グラフのidentifierにより返すデータ数を変える（複数グラフを表示する場合に必要）
         return UInt(self.totalBillHistoryArray.count)
     }
 
-    // グラフに使用する折れ線グラフのX軸とY軸のデータを返す
     func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject! {
-        // 折れ線グラフのidentifierにより返すデータ数を変える（複数グラフを表示する場合に必要）
         switch (CPTScatterPlotField(rawValue: Int(fieldEnum))!) {
-        case .X:  // X軸の場合
+        case .X:
             return NSNumber(unsignedLong: idx)
-        case .Y:  // Y軸の場合
+        case .Y:
             return self.totalBillHistoryArray[Int(idx)]
         }
     }
@@ -101,6 +100,8 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         self.yMajorIntervalLength = self.calculateYMajerIntervalLength(yPlotRangeLength: self.yPlotRange.length.integerValue)
 
         self.lineColor = self.calculateLineColor(totalBillArray: self.totalBillHistoryArray)
+        self.fillGradientBeginningColor = self.calculateFillGradientBeginningColor(totalBillArray: self.totalBillHistoryArray)
+        self.fillGradientEndingColor = self.calculateFillGradientEndingColor(totalBillArray: self.totalBillHistoryArray)
     }
 
     func calculateXPlotRange(# plotCount: Int) -> CPTPlotRange {
@@ -149,98 +150,94 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         }
     }
 
+    func calculateFillGradientBeginningColor(# totalBillArray: Array<Double>) -> CPTColor {
+        let currentTotalBill = totalBillArray.last
+
+        if currentTotalBill >= 0 {
+            return CPTColor(CGColor: ColorScheme.positiveGradientBeginningGraphFillColor().CGColor)
+        } else {
+            return CPTColor(CGColor: ColorScheme.negativeGradientBeginningGraphFillColor().CGColor)
+        }
+    }
+
+    func calculateFillGradientEndingColor(# totalBillArray: Array<Double>) -> CPTColor {
+        let currentTotalBill = totalBillArray.last
+
+        if currentTotalBill >= 0 {
+            return CPTColor(CGColor: ColorScheme.positiveGradientEndingGraphFillColor().CGColor)
+        } else {
+            return CPTColor(CGColor: ColorScheme.negativeGradientEndingGraphFillColor().CGColor)
+        }
+    }
+
     func friendDetailGraphHostingView() -> CPTGraphHostingView {
-        // グラフを生成
         let graph = CPTXYGraph(frame: self.frame)
 
-        // グラフのボーダー設定
+        // border
         graph.plotAreaFrame.borderLineStyle = nil
-        graph.plotAreaFrame.cornerRadius    = 0.0
-        graph.plotAreaFrame.masksToBorder   = false
+        graph.plotAreaFrame.masksToBorder = false
+        graph.plotAreaFrame.paddingLeft   = 40.0
 
-        // パディング
-        graph.paddingLeft   = 0.0
-        graph.paddingRight  = 0.0
-        graph.paddingTop    = 0.0
+        // padding
+        graph.paddingLeft = 0.0
+        graph.paddingRight = 0.0
+        graph.paddingTop = 0.0
         graph.paddingBottom = 0.0
 
-        graph.plotAreaFrame.paddingLeft   = 10.0
-//        graph.plotAreaFrame.paddingTop    = 60.0
-//        graph.plotAreaFrame.paddingRight  = 20.0
-//        graph.plotAreaFrame.paddingBottom = 65.0
-
-        //プロット間隔の設定
+        // plot space
         let plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace
         plotSpace.delegate = self
-        //Y軸は0〜10の値で設定
         plotSpace.yRange = self.yPlotRange
-        //X軸は0〜10の値で設定
         plotSpace.xRange = self.xPlotRange
 
-        // テキストスタイル
-        //    CPTMutableTextStyle *textStyle = [CPTTextStyle textStyle]
-        //    textStyle.color                = [CPTColor colorWithComponentRed:0.447f green:0.443f blue:0.443f alpha:1.0f]
-        //    textStyle.fontSize             = 13.0f
-        //    textStyle.textAlignment        = CPTTextAlignmentCenter
-
-        // ラインスタイル
-        let lineStyle = CPTMutableLineStyle()
-        lineStyle.lineColor            = CPTColor(componentRed: 0.788, green:0.792, blue:0.792, alpha:1.0)
-        lineStyle.lineWidth            = 1.0
-
-        // X軸のメモリ・ラベルなどの設定
+        // axis
         let axisSet = graph.axisSet as CPTXYAxisSet
-        let x       = axisSet.xAxis
-        x.axisLineStyle               = lineStyle      // X軸の線にラインスタイルを適用
-        x.majorTickLineStyle          = lineStyle      // X軸の大きいメモリにラインスタイルを適用
-        x.minorTickLineStyle          = lineStyle      // X軸の小さいメモリにラインスタイルを適用
-        x.majorIntervalLength         = 0 // X軸ラベルの表示間隔
-        //        x.orthogonalCoordinateDecimal = 0 // X軸のY位置
-        //    x.title                       = @"X軸"
-        //    x.titleTextStyle = textStyle
-        //    x.titleLocation               = CPTDecimalFromFloat(5.0f)
-        //    x.titleOffset                 = 36.0f
-        //    x.minorTickLength = 5.0f                   // X軸のメモリの長さ ラベルを設定しているため無効ぽい
-        //    x.majorTickLength = 9.0f                   // X軸のメモリの長さ ラベルを設定しているため無効ぽい
-        //    x.labelTextStyle = textStyle
-
-        // Y軸のメモリ・ラベルなどの設定
+        let axisLineStyle = CPTMutableLineStyle()
+        axisLineStyle.lineColor = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
+        axisLineStyle.lineWidth = 1
+        let x = axisSet.xAxis
+        x.axisLineStyle = axisLineStyle
+        x.majorTickLineStyle = axisLineStyle
+        x.minorTickLineStyle = axisLineStyle
+        x.majorIntervalLength = 0
         let y = axisSet.yAxis
-        y.axisLineStyle               = lineStyle      // Y軸の線にラインスタイルを適用
-        y.majorTickLineStyle          = lineStyle      // Y軸の大きいメモリにラインスタイルを適用
-        y.minorTickLineStyle          = lineStyle      // Y軸の小さいメモリにラインスタイルを適用
-        y.majorTickLength = 9.0                   // Y軸の大きいメモリの長さ
-        y.minorTickLength = 5.0                   // Y軸の小さいメモリの長さ
-        y.majorIntervalLength         = self.yMajorIntervalLength  // Y軸ラベルの表示間隔
-        //        y.orthogonalCoordinateDecimal = 0  // Y軸のX位置
-        //    y.title                       = @"Y軸"
-        //    y.titleTextStyle = textStyle
-        //    y.titleRotation = M_PI*2
-        //    y.titleLocation               = CPTDecimalFromFloat(11.0f)
-        //    y.titleOffset                 = 15.0f
-        lineStyle.lineWidth = 0.5
-        y.majorGridLineStyle = lineStyle
+        y.axisLineStyle = axisLineStyle
+        y.majorTickLineStyle = axisLineStyle
+        y.minorTickLineStyle = axisLineStyle
+        y.majorTickLength = 9.0
+        y.minorTickLength = 5.0
+        y.majorIntervalLength = self.yMajorIntervalLength
+
+        let gridLineStyle = CPTMutableLineStyle()
+        gridLineStyle.lineColor = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
+        gridLineStyle.lineWidth = 0.5
+        y.majorGridLineStyle = gridLineStyle
+
         let textStyle = CPTMutableTextStyle()
-        textStyle.color = CPTColor(CGColor: UIColor.clearColor().CGColor)  // instead of hidden
+        textStyle.color = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
         y.labelTextStyle = textStyle
         let formatter = NSNumberFormatter()
         formatter.maximumFractionDigits = 0
         y.labelFormatter = formatter
 
-        // 折れ線グラフのインスタンスを生成
+        // plot
         let scatterPlot = CPTScatterPlot(frame: CGRectZero)
-        scatterPlot.identifier      = "Plot" // 折れ線グラフを識別するために識別子を設定
-        scatterPlot.dataSource      = self               // 折れ線グラフのデータソースを設定
+        scatterPlot.identifier = "Plot"
+        scatterPlot.dataSource = self
 
-        // 折れ線グラフのスタイルを設定
         let graphlineStyle = scatterPlot.dataLineStyle.mutableCopy() as CPTMutableLineStyle
-        graphlineStyle.lineWidth = 3                    // 太さ
+        graphlineStyle.lineWidth = 1
         graphlineStyle.lineColor = self.lineColor
         scatterPlot.dataLineStyle = graphlineStyle
+        var gradient = CPTGradient(beginningColor: self.fillGradientBeginningColor, endingColor: self.fillGradientEndingColor)
+        gradient.angle = -90.0
+        var gradientFill = CPTFill(gradient: gradient)
+        scatterPlot.areaFill = gradientFill
+        scatterPlot.areaBaseValue = 0
 
-        // グラフに折れ線グラフを追加
         graph.addPlot(scatterPlot)
 
+        // hosting view
         let graphHostingView = CPTGraphHostingView()
         graphHostingView.hostedGraph = graph
 
