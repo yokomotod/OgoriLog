@@ -69,6 +69,9 @@ extension Friend {
 
         fetchRequest.predicate = NSPredicate(format: "friend = %@", self)
 
+        let sortDescriptor = NSSortDescriptor(key: "identifier", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
         return context.executeFetchRequest(fetchRequest, error: nil) as Array<Bill>
 
     }
