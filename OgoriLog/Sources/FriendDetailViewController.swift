@@ -150,6 +150,6 @@ class FriendDetailViewController: UIViewController {
     func presentBillList() {
         let controller = BillListViewController()
         controller.friend = self.friend
-        self.showDetailViewController(controller, sender: self)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
