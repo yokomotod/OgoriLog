@@ -26,7 +26,7 @@ class FriendDetailViewController: UIViewController {
 
         self.view.backgroundColor = UIColor.whiteColor()
 
-        let nameButton = UIButton.buttonWithType(.System) as UIButton
+        let nameButton = UIButton.buttonWithType(.System) as! UIButton
         nameButton.titleLabel?.font = UIFont.systemFontOfSize(20)
         nameButton.bk_addEventHandler({ [weak self] sender in
             let controller = FriendAddViewController.friendAddViewController()
@@ -40,13 +40,13 @@ class FriendDetailViewController: UIViewController {
         }
         self.graphView = graphView
 
-        let totalBillButton = UIButton.buttonWithType(.System) as UIButton
+        let totalBillButton = UIButton.buttonWithType(.System) as! UIButton
         totalBillButton.bk_addEventHandler({ [weak self] sender in
             self?.presentBillList()
             return
         }, forControlEvents: .TouchUpInside)
 
-        let addBillButton = UIButton.buttonWithType(.System) as UIButton
+        let addBillButton = UIButton.buttonWithType(.System) as! UIButton
         addBillButton.setTitle(NSLocalizedString("Add Bill", comment: ""), forState: .Normal)
         addBillButton.bk_addEventHandler({ [weak self] sender in
             let controller = BillAddViewController.billAddViewController()

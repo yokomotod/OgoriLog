@@ -57,12 +57,12 @@ class AboutViewController: UITableViewController {
             cell?.selectionStyle = .None
             return cell!
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
             cell.textLabel?.text = NSLocalizedString("Acknowledgements", comment: "")
             cell.accessoryType = .DisclosureIndicator
             return cell
         default:
-            return tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         }
     }
 

@@ -82,7 +82,7 @@ class FriendAddViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
         cell.selectionStyle = .None
@@ -115,7 +115,7 @@ class FriendAddViewController: UITableViewController {
             self.nameTextField = textField
 
         case 1:
-            let saveButton = UIButton.buttonWithType(.System) as UIButton
+            let saveButton = UIButton.buttonWithType(.System) as! UIButton
             saveButton.setTitle(NSLocalizedString("Save", comment: ""), forState: .Normal)
             saveButton.bk_addEventHandler({ [weak self] sender in
                 self?.add(sender)
@@ -140,8 +140,8 @@ class FriendAddViewController: UITableViewController {
 
     func updateControlState() {
         if let nameTextField = self.nameTextField {
-            let count = countElements(nameTextField.text)
-            if 0 < count && count <= 15 {
+            let textCount = count(nameTextField.text)
+            if 0 < textCount && textCount <= 15 {
                 self.saveButton?.enabled = true
                 return
             }

@@ -18,7 +18,7 @@ extension Bill {
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
 
-        let lastBill = context.executeFetchRequest(fetchRequest, error: nil)?.first as Bill?
+        let lastBill = context.executeFetchRequest(fetchRequest, error: nil)?.first as! Bill?
         return lastBill != nil ? lastBill!.identifier.integerValue : -1
     }
 

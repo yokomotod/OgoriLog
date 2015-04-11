@@ -16,7 +16,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     override func loadView() {
         super.loadView()
 
-        let infoButton = UIButton.buttonWithType(.InfoLight) as UIButton
+        let infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
         infoButton.bk_addEventHandler({ [weak self] sender in
             let controller = AboutViewController.aboutViewController()
             self?.showDetailViewController(UINavigationController(rootViewController: controller), sender: self)
@@ -32,7 +32,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         tableView.delegate = self
         tableView.registerClass(FriendListViewCell.self, forCellReuseIdentifier: "Cell")
 
-        let addFriendButton = UIButton.buttonWithType(.System) as UIButton
+        let addFriendButton = UIButton.buttonWithType(.System) as! UIButton
         addFriendButton.setTitle(NSLocalizedString("Add Friend", comment: ""), forState: .Normal)
         addFriendButton.bk_addEventHandler({ [weak self] sender in
             let controller = FriendAddViewController.friendAddViewController()
@@ -94,7 +94,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
     }
 
@@ -103,7 +103,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as FriendListViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! FriendListViewCell
         self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
@@ -116,7 +116,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let context = CoreDataManager.sharedInstance.temporaryManagedObjectContext()
-            let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
+            let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Friend
             context.performBlock { () in
                 context.deleteObject(context.objectWithID(friend.objectID))
 
@@ -126,12 +126,12 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func configureCell(cell: FriendListViewCell, atIndexPath indexPath: NSIndexPath) {
-        let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
+        let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Friend
         cell.configureView(friend)
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as Friend
+        let friend = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Friend
         let controller = FriendDetailViewController()
         controller.friend = friend
         controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
@@ -196,7 +196,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
             case .Delete:
                 self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             case .Update:
-                let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as FriendListViewCell
+                let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as! FriendListViewCell
                 self.configureCell(cell, atIndexPath: indexPath!)
             case .Move:
                 self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)

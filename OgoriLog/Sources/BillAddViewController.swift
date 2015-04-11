@@ -65,7 +65,7 @@ class BillAddViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
         cell.selectionStyle = .None
 
@@ -124,7 +124,7 @@ class BillAddViewController: UITableViewController {
             self.titleTextField = textField
             
         case 2:
-            let giveButton = UIButton.buttonWithType(.System) as UIButton
+            let giveButton = UIButton.buttonWithType(.System) as! UIButton
             giveButton.setTitle(NSLocalizedString("Give", comment: ""), forState: .Normal)
             giveButton.setTitleColor(ColorScheme.positiveColor(), forState: .Normal)
             giveButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
@@ -132,7 +132,7 @@ class BillAddViewController: UITableViewController {
                 self?.give(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
-            let getButton = UIButton.buttonWithType(.System) as UIButton
+            let getButton = UIButton.buttonWithType(.System) as! UIButton
             getButton.setTitle(NSLocalizedString("Get", comment: ""), forState: .Normal)
             getButton.setTitleColor(ColorScheme.negativeColor(), forState: .Normal)
             getButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
@@ -179,8 +179,8 @@ class BillAddViewController: UITableViewController {
             let amount = atof(amountTextField.text)
             if 0 < amount && amount < 1000000 {
                 if let titleTextField = self.titleTextField {
-                    let count = countElements(titleTextField.text)
-                    if 0 <= count && count < 15 {
+                    let textCount = count(titleTextField.text)
+                    if 0 <= textCount && textCount < 15 {
                         self.giveButton?.enabled = true
                         self.getButton?.enabled = true
                         return

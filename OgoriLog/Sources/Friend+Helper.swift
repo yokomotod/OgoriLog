@@ -19,12 +19,12 @@ extension Friend {
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
 
-        let lastFriend = context.executeFetchRequest(fetchRequest, error: nil)?.first as Friend?
+        let lastFriend = context.executeFetchRequest(fetchRequest, error: nil)?.first as! Friend?
         return lastFriend != nil ? lastFriend!.identifier.integerValue : -1
     }
 
     class func createNewFriend(context: NSManagedObjectContext, name: String) -> Friend {
-        let newFriend = NSEntityDescription.insertNewObjectForEntityForName("Friend", inManagedObjectContext: context) as Friend
+        let newFriend = NSEntityDescription.insertNewObjectForEntityForName("Friend", inManagedObjectContext: context) as! Friend
 
         // If appropriate, configure the new managed object.
         newFriend.identifier = Friend.lastIdentifier(context) + 1;
@@ -36,14 +36,14 @@ extension Friend {
     }
 
     func createNewBill(context: NSManagedObjectContext, amount: Double, title: String?) -> Bill {
-        let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as Bill
+        let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill
 
         // If appropriate, configure the new managed object.
         newBill.identifier = Bill.lastIdentifier(context) + 1
         newBill.amount = amount
         newBill.timeStamp = NSDate()
         newBill.title = title;
-        newBill.friend = context.objectWithID(self.objectID) as Friend
+        newBill.friend = context.objectWithID(self.objectID) as! Friend
 
         self.totalBill = self.calculateTotalBill(context)
 
@@ -72,7 +72,7 @@ extension Friend {
         let sortDescriptor = NSSortDescriptor(key: "identifier", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
-        return context.executeFetchRequest(fetchRequest, error: nil) as Array<Bill>
+        return context.executeFetchRequest(fetchRequest, error: nil) as! Array<Bill>
 
     }
 }

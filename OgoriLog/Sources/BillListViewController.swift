@@ -44,12 +44,12 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as BillListViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! BillListViewCell
         self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
@@ -65,7 +65,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
             let fetchedResultsController = self.fetchedResultsController
             let friend = self.friend
             context.performBlock { () in
-                let bill = fetchedResultsController.objectAtIndexPath(indexPath) as Bill
+                let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
                 context.deleteObject(context.objectWithID(bill.objectID))
 
                 friend.totalBill = friend.calculateTotalBill(context)
@@ -76,7 +76,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     func configureCell(cell: BillListViewCell, atIndexPath indexPath: NSIndexPath) {
-        let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as Bill
+        let bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
         cell.configureView(bill)
     }
 
@@ -145,7 +145,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
-            let cell = tableView.cellForRowAtIndexPath(indexPath!) as BillListViewCell
+            let cell = tableView.cellForRowAtIndexPath(indexPath!) as! BillListViewCell
             self.configureCell(cell, atIndexPath: indexPath!)
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)

@@ -185,13 +185,13 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         graph.paddingBottom = 0.0
 
         // plot space
-        let plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace
+        let plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpace.delegate = self
         plotSpace.yRange = self.yPlotRange
         plotSpace.xRange = self.xPlotRange
 
         // axis
-        let axisSet = graph.axisSet as CPTXYAxisSet
+        let axisSet = graph.axisSet as! CPTXYAxisSet
         let axisLineStyle = CPTMutableLineStyle()
         axisLineStyle.lineColor = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
         axisLineStyle.lineWidth = 1
@@ -225,7 +225,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         scatterPlot.identifier = "Plot"
         scatterPlot.dataSource = self
 
-        let graphlineStyle = scatterPlot.dataLineStyle.mutableCopy() as CPTMutableLineStyle
+        let graphlineStyle = scatterPlot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
         graphlineStyle.lineWidth = 1
         graphlineStyle.lineColor = self.lineColor
         scatterPlot.dataLineStyle = graphlineStyle
