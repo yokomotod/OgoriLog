@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         friendDetailNavigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
 
         splitViewController.viewControllers = [friendListNavigationController, friendDetailNavigationController]
+        splitViewController.preferredDisplayMode = .AllVisible
 
         self.window?.rootViewController = splitViewController
         self.window?.makeKeyAndVisible()
