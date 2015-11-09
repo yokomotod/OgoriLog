@@ -3,7 +3,7 @@
 /// @cond
 @interface _CPTAnimationCGSizePeriod()
 
-CGSize currentSizeValue(id boundObject, SEL boundGetter);
+CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter);
 
 @end
 /// @endcond
@@ -12,7 +12,7 @@ CGSize currentSizeValue(id boundObject, SEL boundGetter);
 
 @implementation _CPTAnimationCGSizePeriod
 
-CGSize currentSizeValue(id boundObject, SEL boundGetter)
+CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -29,16 +29,20 @@ CGSize currentSizeValue(id boundObject, SEL boundGetter)
 
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    CGSize start = currentSizeValue(boundObject, boundGetter);
+    CGSize start = CPTCurrentSizeValue(boundObject, boundGetter);
 
     self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGSize)];
 }
 
 -(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    CGSize current = currentSizeValue(boundObject, boundGetter);
+    CGSize current = CPTCurrentSizeValue(boundObject, boundGetter);
     CGSize start;
     CGSize end;
+
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
 
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];

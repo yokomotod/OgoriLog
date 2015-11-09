@@ -49,11 +49,11 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
 
     // mark Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
+    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
         return UInt(self.totalBillHistoryArray.count)
     }
 
-    func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject! {
+    func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
         switch (CPTScatterPlotField(rawValue: Int(fieldEnum))!) {
         case .X:
             return NSNumber(unsignedLong: idx)
@@ -64,7 +64,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
 
     // mark Plot Data Space Methods
 
-    func plotSpace(space: CPTPlotSpace!, shouldHandlePointingDeviceDownEvent event: UIEvent!, atPoint point: CGPoint) -> Bool {
+    func plotSpace(space: CPTPlotSpace, shouldHandlePointingDeviceDownEvent event: UIEvent, atPoint point: CGPoint) -> Bool {
 
         self.didTouchGraphBlock()
 
@@ -104,12 +104,12 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         self.fillGradientEndingColor = self.calculateFillGradientEndingColor(totalBillArray: self.totalBillHistoryArray)
     }
 
-    func calculateXPlotRange(# plotCount: Int) -> CPTPlotRange {
+    func calculateXPlotRange(plotCount  plotCount: Int) -> CPTPlotRange {
         let length = plotCount > 5 ? plotCount : 5
         return CPTPlotRange(location: 0, length:length)
     }
 
-    func calculateYPlotRange(# min: Double, max: Double) -> CPTPlotRange {
+    func calculateYPlotRange(min  min: Double, max: Double) -> CPTPlotRange {
         let bottom = min < 0 ? min : 0
         let top = max > 0 ? max : 0
         let diff = top - bottom
@@ -118,7 +118,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         return CPTPlotRange(location:bottom * 1.1, length:length * 1.1)
     }
 
-    func calculateYMajerIntervalLength(# yPlotRangeLength: Int) -> Int {
+    func calculateYMajerIntervalLength(yPlotRangeLength  yPlotRangeLength: Int) -> Int {
         var eff = yPlotRangeLength
         var sft = 1 as Int
 
@@ -140,7 +140,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         return eff * sft / 2
     }
 
-    func calculateLineColor(# totalBillArray: Array<Double>) -> CPTColor {
+    func calculateLineColor(totalBillArray  totalBillArray: Array<Double>) -> CPTColor {
         let currentTotalBill = totalBillArray.last
 
         if currentTotalBill >= 0 {
@@ -150,7 +150,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         }
     }
 
-    func calculateFillGradientBeginningColor(# totalBillArray: Array<Double>) -> CPTColor {
+    func calculateFillGradientBeginningColor(totalBillArray  totalBillArray: Array<Double>) -> CPTColor {
         let currentTotalBill = totalBillArray.last
 
         if currentTotalBill >= 0 {
@@ -160,7 +160,7 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         }
     }
 
-    func calculateFillGradientEndingColor(# totalBillArray: Array<Double>) -> CPTColor {
+    func calculateFillGradientEndingColor(totalBillArray  totalBillArray: Array<Double>) -> CPTColor {
         let currentTotalBill = totalBillArray.last
 
         if currentTotalBill >= 0 {
@@ -174,9 +174,9 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         let graph = CPTXYGraph(frame: self.frame)
 
         // border
-        graph.plotAreaFrame.borderLineStyle = nil
-        graph.plotAreaFrame.masksToBorder = false
-        graph.plotAreaFrame.paddingLeft   = 40.0
+        graph.plotAreaFrame?.borderLineStyle = nil
+        graph.plotAreaFrame?.masksToBorder = false
+        graph.plotAreaFrame?.paddingLeft   = 40.0
 
         // padding
         graph.paddingLeft = 0.0
@@ -196,42 +196,42 @@ class FriendDetailGraphWrapperView: UIView, CPTPlotSpaceDelegate, CPTPlotDataSou
         axisLineStyle.lineColor = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
         axisLineStyle.lineWidth = 1
         let x = axisSet.xAxis
-        x.axisLineStyle = axisLineStyle
-        x.majorTickLineStyle = axisLineStyle
-        x.minorTickLineStyle = axisLineStyle
-        x.majorIntervalLength = 0
+        x?.axisLineStyle = axisLineStyle
+        x?.majorTickLineStyle = axisLineStyle
+        x?.minorTickLineStyle = axisLineStyle
+        x?.majorIntervalLength = 0
         let y = axisSet.yAxis
-        y.axisLineStyle = axisLineStyle
-        y.majorTickLineStyle = axisLineStyle
-        y.minorTickLineStyle = axisLineStyle
-        y.majorTickLength = 9.0
-        y.minorTickLength = 5.0
-        y.majorIntervalLength = self.yMajorIntervalLength
+        y?.axisLineStyle = axisLineStyle
+        y?.majorTickLineStyle = axisLineStyle
+        y?.minorTickLineStyle = axisLineStyle
+        y?.majorTickLength = 9.0
+        y?.minorTickLength = 5.0
+        y?.majorIntervalLength = self.yMajorIntervalLength
 
         let gridLineStyle = CPTMutableLineStyle()
         gridLineStyle.lineColor = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
         gridLineStyle.lineWidth = 0.5
-        y.majorGridLineStyle = gridLineStyle
+        y?.majorGridLineStyle = gridLineStyle
 
         let textStyle = CPTMutableTextStyle()
         textStyle.color = CPTColor(CGColor: ColorScheme.baseGraphColor().CGColor)
-        y.labelTextStyle = textStyle
+        y?.labelTextStyle = textStyle
         let formatter = NSNumberFormatter()
         formatter.maximumFractionDigits = 0
-        y.labelFormatter = formatter
+        y?.labelFormatter = formatter
 
         // plot
         let scatterPlot = CPTScatterPlot(frame: CGRectZero)
         scatterPlot.identifier = "Plot"
         scatterPlot.dataSource = self
 
-        let graphlineStyle = scatterPlot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
-        graphlineStyle.lineWidth = 1
-        graphlineStyle.lineColor = self.lineColor
+        let graphlineStyle = scatterPlot.dataLineStyle?.mutableCopy() as? CPTMutableLineStyle
+        graphlineStyle?.lineWidth = 1
+        graphlineStyle?.lineColor = self.lineColor
         scatterPlot.dataLineStyle = graphlineStyle
-        var gradient = CPTGradient(beginningColor: self.fillGradientBeginningColor, endingColor: self.fillGradientEndingColor)
+        let gradient = CPTGradient(beginningColor: self.fillGradientBeginningColor, endingColor: self.fillGradientEndingColor)
         gradient.angle = -90.0
-        var gradientFill = CPTFill(gradient: gradient)
+        let gradientFill = CPTFill(gradient: gradient)
         scatterPlot.areaFill = gradientFill
         scatterPlot.areaBaseValue = 0
 

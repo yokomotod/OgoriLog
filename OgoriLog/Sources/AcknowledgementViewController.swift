@@ -44,11 +44,11 @@ class AcknowledgementViewController: UIViewController {
                 textArray.append(text)
             }
         }
-        return join("\n\n\n",textArray)
+        return textArray.joinWithSeparator("\n\n\n")
     }
 
     func acknowledgementsArray() -> Array<Dictionary<String, String>>? {
-        let settingsBundlePath = NSBundle.mainBundle().bundlePath.stringByAppendingPathComponent("Settings.bundle")
+        let settingsBundlePath = NSBundle.mainBundle().bundlePath + "Settings.bundle"
         let settingsBundle = NSBundle(path: settingsBundlePath)
         if let file = settingsBundle?.pathForResource("Acknowledgements", ofType: "plist") {
             if let infoPlistDictionary =  NSDictionary(contentsOfFile: file) as? Dictionary<String, AnyObject> {

@@ -1,6 +1,6 @@
 {
   "name": "CorePlot",
-  "version": "99.99.99",
+  "version": "2.0",
   "license": "BSD",
   "summary": "Cocoa plotting framework for Mac OS X and iOS.",
   "homepage": "https://github.com/core-plot",
@@ -13,11 +13,12 @@
     "Barry Wark": "barrywark@gmail.com"
   },
   "source": {
-    "git": "https://github.com/core-plot/core-plot.git"
+    "git": "https://github.com/core-plot/core-plot.git",
+    "tag": "release_2.0"
   },
   "description": "Core Plot is a plotting framework for OS X and iOS. It provides 2D visualization of data, and is tightly integrated with Apple technologies like Core Animation, Core Data, and Cocoa Bindings.",
   "platforms": {
-    "ios": "5.0",
+    "ios": "6.0",
     "osx": "10.7"
   },
   "ios": {
@@ -26,6 +27,9 @@
       "framework/CorePlot-CocoaTouch.h",
       "framework/iPhoneOnly/*.{h,m}"
     ],
+    "xcconfig": {
+      "HEADER_SEARCH_PATHS": "\"${PODS_ROOT}/Headers/Public/CorePlot/ios\""
+    },
     "frameworks": [
       "UIKit",
       "Foundation"
@@ -33,25 +37,28 @@
   },
   "osx": {
     "header_dir": "osx",
-    "source_files": [
-      "framework/CorePlot.h",
-      "framework/MacOnly/*.{h,m}"
-    ],
+    "source_files": "framework/MacOnly/*.{h,m}",
+    "xcconfig": {
+      "HEADER_SEARCH_PATHS": "\"${PODS_ROOT}/Headers/Public/CorePlot/osx\""
+    },
     "frameworks": "Cocoa"
   },
-  "source_files": "framework/Source/*.{h,m}",
-  "exclude_files": "**/*{TestCase,Tests}.{h,m}",
+  "source_files": [
+    "framework/Source/*.{h,m}",
+    "framework/CocoaPods/*.h",
+    "framework/TestResources/CorePlotProbes.d"
+  ],
+  "exclude_files": [
+    "**/*{TestCase,Tests}.{h,m}",
+    "**/mainpage.h"
+  ],
   "private_header_files": [
     "**/_*.h",
     "**/CorePlotProbes.h"
   ],
   "requires_arc": true,
-  "xcconfig": {
-    "ALWAYS_SEARCH_USER_PATHS": "YES"
-  },
   "frameworks": [
     "QuartzCore",
     "Accelerate"
-  ],
-  "prepare_command": "    dtrace -h -s framework/TestResources/CorePlotProbes.d -o framework/Source/CorePlotProbes.h\n"
+  ]
 }

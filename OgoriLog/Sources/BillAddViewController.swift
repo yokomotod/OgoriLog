@@ -18,8 +18,12 @@ class BillAddViewController: UITableViewController {
     var giveButton: UIButton?
     var getButton: UIButton?
 
-    class func billAddViewController() -> Self {
-        return self.init(style: .Grouped)
+    init() {
+        super.init(style: .Grouped)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -65,7 +69,7 @@ class BillAddViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         cell.selectionStyle = .None
 
@@ -124,7 +128,7 @@ class BillAddViewController: UITableViewController {
             self.titleTextField = textField
             
         case 2:
-            let giveButton = UIButton.buttonWithType(.System) as! UIButton
+            let giveButton = UIButton(type: .System)
             giveButton.setTitle(NSLocalizedString("Give", comment: ""), forState: .Normal)
             giveButton.setTitleColor(ColorScheme.positiveColor(), forState: .Normal)
             giveButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
@@ -132,7 +136,7 @@ class BillAddViewController: UITableViewController {
                 self?.give(sender)
                 return
                 }, forControlEvents: .TouchUpInside)
-            let getButton = UIButton.buttonWithType(.System) as! UIButton
+            let getButton = UIButton(type: .System)
             getButton.setTitle(NSLocalizedString("Get", comment: ""), forState: .Normal)
             getButton.setTitleColor(ColorScheme.negativeColor(), forState: .Normal)
             getButton.setTitleColor(ColorScheme.weakTextColor(), forState: .Disabled)
@@ -175,11 +179,11 @@ class BillAddViewController: UITableViewController {
     }
 
     func updateControlState() {
-        if let amountTextField = self.amountTextField {
-            let amount = atof(amountTextField.text)
+        if let amountText = self.amountTextField?.text {
+            let amount = atof(amountText)
             if 0 < amount && amount < 1000000 {
-                if let titleTextField = self.titleTextField {
-                    let textCount = count(titleTextField.text)
+                if let titleText = self.titleTextField?.text {
+                    let textCount = titleText.characters.count
                     if 0 <= textCount && textCount < 15 {
                         self.giveButton?.enabled = true
                         self.getButton?.enabled = true
@@ -193,11 +197,12 @@ class BillAddViewController: UITableViewController {
     }
 
     func save(multiplier: Double) {
-        if self.amountTextField == nil || self.amountTextField!.text.isEmpty {
+        guard let amountText = self.amountTextField?.text where !amountText.isEmpty else {
             return
         }
 
-        let amount = atof(self.amountTextField!.text) * multiplier
+        let amount = atof(amountText) * multiplier
+
         let title = self.titleTextField?.text
 
         if let bill = self.bill {

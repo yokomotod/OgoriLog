@@ -19,7 +19,7 @@ extension Friend {
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
 
-        let lastFriend = context.executeFetchRequest(fetchRequest, error: nil)?.first as! Friend?
+        let lastFriend = (try? context.executeFetchRequest(fetchRequest))?.first as? Friend
         return lastFriend != nil ? lastFriend!.identifier.integerValue : -1
     }
 
@@ -72,7 +72,7 @@ extension Friend {
         let sortDescriptor = NSSortDescriptor(key: "identifier", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
-        return context.executeFetchRequest(fetchRequest, error: nil) as! Array<Bill>
+        return (try! context.executeFetchRequest(fetchRequest)) as! Array<Bill>
 
     }
 }

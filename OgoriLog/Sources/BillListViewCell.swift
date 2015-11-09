@@ -14,7 +14,7 @@ class BillListViewCell: UITableViewCell {
     var titleLabel: UILabel!
     var amountLabel: UILabel!
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -45,7 +45,7 @@ class BillListViewCell: UITableViewCell {
         }
 
         titleLabel.snp_makeConstraints { make in
-            make.top.equalTo(timeStampLabel.snp_bottom).width.offset(8)
+            make.top.equalTo(timeStampLabel.snp_bottom).offset(8)
 
             make.left.equalTo(titleLabel.superview!.snp_leftMargin)
             make.bottom.equalTo(titleLabel.superview!.snp_bottomMargin)

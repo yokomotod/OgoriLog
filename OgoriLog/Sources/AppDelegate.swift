@@ -11,7 +11,7 @@ import UIKit
 import BlocksKit
 import Crashlytics
 import Fabric
-import Snap
+import SnapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         #endif
 
 
-        println(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first)
+        print(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first)
 
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let friendListNavigationController = UINavigationController(rootViewController: friendListViewController)
 
         let friendDetailNavigationController = UINavigationController(rootViewController: UIViewController())
-        friendDetailNavigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        friendDetailNavigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
 
         splitViewController.viewControllers = [friendListNavigationController, friendDetailNavigationController]
         splitViewController.preferredDisplayMode = .AllVisible
@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     // MARK: - Split view
 
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         return true
     }
 }

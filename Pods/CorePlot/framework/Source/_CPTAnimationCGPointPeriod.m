@@ -3,7 +3,7 @@
 /// @cond
 @interface _CPTAnimationCGPointPeriod()
 
-CGPoint currentPointValue(id boundObject, SEL boundGetter);
+CGPoint CPTCurrentPointValue(id boundObject, SEL boundGetter);
 
 @end
 /// @endcond
@@ -12,14 +12,12 @@ CGPoint currentPointValue(id boundObject, SEL boundGetter);
 
 @implementation _CPTAnimationCGPointPeriod
 
-CGPoint currentPointValue(id boundObject, SEL boundGetter)
+CGPoint CPTCurrentPointValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
     [invocation setTarget:boundObject];
     [invocation setSelector:boundGetter];
-
-    [invocation invoke];
 
     [invocation invoke];
 
@@ -31,16 +29,20 @@ CGPoint currentPointValue(id boundObject, SEL boundGetter)
 
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    CGPoint start = currentPointValue(boundObject, boundGetter);
+    CGPoint start = CPTCurrentPointValue(boundObject, boundGetter);
 
     self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGPoint)];
 }
 
 -(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    CGPoint current = currentPointValue(boundObject, boundGetter);
+    CGPoint current = CPTCurrentPointValue(boundObject, boundGetter);
     CGPoint start;
     CGPoint end;
+
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
 
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];

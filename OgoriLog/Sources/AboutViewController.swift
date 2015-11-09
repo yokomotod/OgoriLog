@@ -10,8 +10,12 @@ import UIKit
 
 class AboutViewController: UITableViewController {
 
-    class func aboutViewController() -> Self {
-        return self.init(style: .Grouped)
+    init() {
+        super.init(style: .Grouped)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -44,7 +48,7 @@ class AboutViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch (indexPath.row) {
         case 0:
-            var cell = tableView.dequeueReusableCellWithIdentifier("Value1Cell") as? UITableViewCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("Value1Cell")
             if cell == nil {
                 cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Value1Cell")
             }
@@ -57,12 +61,12 @@ class AboutViewController: UITableViewController {
             cell?.selectionStyle = .None
             return cell!
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
             cell.textLabel?.text = NSLocalizedString("Acknowledgements", comment: "")
             cell.accessoryType = .DisclosureIndicator
             return cell
         default:
-            return tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         }
     }
 

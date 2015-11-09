@@ -14,27 +14,26 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - CorePlot (99.99.99)
-  - Snap (0.0.6)
+  - CorePlot (2.0)
+  - Crashlytics (3.4.0):
+    - Fabric (~> 1.6.0)
+  - Fabric (1.6.0):
+    - Fabric/Base (= 1.6.0)
+  - Fabric/Base (1.6.0)
+  - SnapKit (0.17.0)
 
 DEPENDENCIES:
   - BlocksKit
-  - CorePlot (from `https://github.com/core-plot/core-plot.git`, branch `release-2.0`)
-  - Snap
-
-EXTERNAL SOURCES:
-  CorePlot:
-    :branch: release-2.0
-    :git: https://github.com/core-plot/core-plot.git
-
-CHECKOUT OPTIONS:
-  CorePlot:
-    :commit: d8ac0e7cc26faf839ed111debbbe17ab30403775
-    :git: https://github.com/core-plot/core-plot.git
+  - CorePlot
+  - Crashlytics
+  - Fabric
+  - SnapKit
 
 SPEC CHECKSUMS:
-  BlocksKit: 4439e7f30a9f90743462ca63545a15c1f4304cef
-  CorePlot: 80c046fdb3f9f44c73a5ca5887c54ded52510105
-  Snap: 8930faf14165047799c47a46ee4bab0b1f85b54b
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  CorePlot: b7f422ad363f2b0e48152471d6da45ce232eb8c6
+  Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
+  Fabric: d737eda3a26ac940a5430230eedb35f16b226131
+  SnapKit: 49fd7b1b3ff58ab4064004036b8afcfddbd3a4bd
 
-COCOAPODS: 0.36.0.beta.2
+COCOAPODS: 0.39.0

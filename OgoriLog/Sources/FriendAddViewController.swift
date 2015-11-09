@@ -15,9 +15,17 @@ class FriendAddViewController: UITableViewController {
     var nameTextField: UITextField?
     var saveButton: UIButton?
 
-    class func friendAddViewController() -> Self {
-        return self.init(style: .Grouped)
+    init() {
+        super.init(style: .Grouped)
     }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    //    class func friendAddViewController() -> Self {
+//        return self.init(style: .Grouped)
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +47,9 @@ class FriendAddViewController: UITableViewController {
     // MARK: - Action
 
     func add(sender: AnyObject) {
-        if self.nameTextField == nil || self.nameTextField!.text.isEmpty {
+        guard let name = self.nameTextField?.text where !name.isEmpty else {
             return
         }
-
-        let name = self.nameTextField!.text
 
         if let friend = self.friend {
             if friend.name != name {
@@ -82,7 +88,7 @@ class FriendAddViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         // Configure the cell...
         cell.selectionStyle = .None
@@ -115,7 +121,7 @@ class FriendAddViewController: UITableViewController {
             self.nameTextField = textField
 
         case 1:
-            let saveButton = UIButton.buttonWithType(.System) as! UIButton
+            let saveButton = UIButton(type: .System)
             saveButton.setTitle(NSLocalizedString("Save", comment: ""), forState: .Normal)
             saveButton.bk_addEventHandler({ [weak self] sender in
                 self?.add(sender)
@@ -139,8 +145,8 @@ class FriendAddViewController: UITableViewController {
     }
 
     func updateControlState() {
-        if let nameTextField = self.nameTextField {
-            let textCount = count(nameTextField.text)
+        if let text = self.nameTextField?.text {
+            let textCount = text.characters.count
             if 0 < textCount && textCount <= 15 {
                 self.saveButton?.enabled = true
                 return

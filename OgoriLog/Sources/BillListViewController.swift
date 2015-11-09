@@ -44,8 +44,11 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
-        return sectionInfo.numberOfObjects
+        if let sectionInfo = self.fetchedResultsController.sections?[section] {
+            return sectionInfo.numberOfObjects
+        } else {
+            return 0
+        }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -81,7 +84,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let controller = BillAddViewController.billAddViewController()
+        let controller = BillAddViewController()
         controller.friend = self.friend
         controller.bill = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Bill
 
@@ -112,12 +115,15 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: String(format: "BillList.%ld", self.friend.identifier.integerValue))
         aFetchedResultsController.delegate = self
 
-        var error: NSError? = nil
-        if !aFetchedResultsController.performFetch(&error) {
+        do {
+            try aFetchedResultsController.performFetch()
+        } catch let error as NSError {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             //println("Unresolved error \(error), \(error.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
 
         return aFetchedResultsController
@@ -150,8 +156,6 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        default:
-            return
         }
     }
 

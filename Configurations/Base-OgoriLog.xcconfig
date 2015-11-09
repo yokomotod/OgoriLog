@@ -7,5 +7,3 @@
 //
 
 SWIFT_OBJC_BRIDGING_HEADER = OgoriLog/Sources/OgoriLog-Bridging-Header.h
-
-FRAMEWORK_SEARCH_PATHS = $(PROJECT_DIR)/Vendor/ $PODS_FRAMEWORK_BUILD_PATH

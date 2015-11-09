@@ -3,7 +3,7 @@
 /// @cond
 @interface _CPTAnimationCGRectPeriod()
 
-CGRect currentRectValue(id boundObject, SEL boundGetter);
+CGRect CPTCurrentRectValue(id boundObject, SEL boundGetter);
 
 @end
 /// @endcond
@@ -12,7 +12,7 @@ CGRect currentRectValue(id boundObject, SEL boundGetter);
 
 @implementation _CPTAnimationCGRectPeriod
 
-CGRect currentRectValue(id boundObject, SEL boundGetter)
+CGRect CPTCurrentRectValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -29,16 +29,20 @@ CGRect currentRectValue(id boundObject, SEL boundGetter)
 
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    CGRect start = currentRectValue(boundObject, boundGetter);
+    CGRect start = CPTCurrentRectValue(boundObject, boundGetter);
 
     self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGRect)];
 }
 
 -(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    CGRect current = currentRectValue(boundObject, boundGetter);
+    CGRect current = CPTCurrentRectValue(boundObject, boundGetter);
     CGRect start;
     CGRect end;
+
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
 
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];

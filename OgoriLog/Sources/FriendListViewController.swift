@@ -16,9 +16,9 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     override func loadView() {
         super.loadView()
 
-        let infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        let infoButton = UIButton(type: .InfoLight)
         infoButton.bk_addEventHandler({ [weak self] sender in
-            let controller = AboutViewController.aboutViewController()
+            let controller = AboutViewController()
             self?.showDetailViewController(UINavigationController(rootViewController: controller), sender: self)
         }, forControlEvents: .TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: infoButton)
@@ -32,10 +32,10 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         tableView.delegate = self
         tableView.registerClass(FriendListViewCell.self, forCellReuseIdentifier: "Cell")
 
-        let addFriendButton = UIButton.buttonWithType(.System) as! UIButton
+        let addFriendButton = UIButton(type: .System)
         addFriendButton.setTitle(NSLocalizedString("Add Friend", comment: ""), forState: .Normal)
         addFriendButton.bk_addEventHandler({ [weak self] sender in
-            let controller = FriendAddViewController.friendAddViewController()
+            let controller = FriendAddViewController()
             self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
             }, forControlEvents: .TouchUpInside)
 
@@ -69,7 +69,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let indexPath = self.tableView.indexPathForSelectedRow() {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
@@ -94,7 +94,7 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
 
@@ -163,12 +163,15 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: "FriendList")
         aFetchedResultsController.delegate = self
 
-        var error: NSError? = nil
-        if !aFetchedResultsController.performFetch(&error) {
+        do {
+            try aFetchedResultsController.performFetch()
+        } catch let error as NSError {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             //println("Unresolved error \(error), \(error.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
 
         return aFetchedResultsController
@@ -201,8 +204,6 @@ class FriendListViewController: UIViewController, UITableViewDataSource, UITable
             case .Move:
                 self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
                 self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            default:
-                return
         }
     }
 

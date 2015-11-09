@@ -153,6 +153,9 @@
  **/
 -(instancetype)initWithLocation:(NSNumber *)loc length:(NSNumber *)len
 {
+    NSParameterAssert(loc);
+    NSParameterAssert(len);
+
     return [self initWithLocationDecimal:loc.decimalValue
                            lengthDecimal:len.decimalValue];
 }
@@ -592,6 +595,23 @@
 
     return [NSString stringWithFormat:@"<%@ {%@, %@}>",
             [super description],
+            NSDecimalString(&myLocation, [NSLocale currentLocale]),
+            NSDecimalString(&myLength, [NSLocale currentLocale])];
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    NSDecimal myLocation = self.locationDecimal;
+    NSDecimal myLength   = self.lengthDecimal;
+
+    return [NSString stringWithFormat:@"Location: %@\nLength:   %@",
             NSDecimalString(&myLocation, [NSLocale currentLocale]),
             NSDecimalString(&myLength, [NSLocale currentLocale])];
 }

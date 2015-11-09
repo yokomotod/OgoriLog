@@ -14,7 +14,7 @@ class FriendListViewCell: UITableViewCell {
     var nameLabel: UILabel!
     var totalBillLabel: UILabel!
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -45,7 +45,7 @@ class FriendListViewCell: UITableViewCell {
         }
 
         nameLabel.snp_makeConstraints { make in
-            make.top.equalTo(timeStampLabel.snp_bottom).width.offset(8)
+            make.top.equalTo(timeStampLabel.snp_bottom).offset(8)
 
             make.left.equalTo(nameLabel.superview!.snp_leftMargin)
             make.bottom.equalTo(nameLabel.superview!.snp_bottomMargin)

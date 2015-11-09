@@ -26,10 +26,10 @@ class FriendDetailViewController: UIViewController {
 
         self.view.backgroundColor = UIColor.whiteColor()
 
-        let nameButton = UIButton.buttonWithType(.System) as! UIButton
+        let nameButton = UIButton(type: .System)
         nameButton.titleLabel?.font = UIFont.systemFontOfSize(20)
         nameButton.bk_addEventHandler({ [weak self] sender in
-            let controller = FriendAddViewController.friendAddViewController()
+            let controller = FriendAddViewController()
             controller.friend = self?.friend
             self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }, forControlEvents: .TouchUpInside)
@@ -40,16 +40,16 @@ class FriendDetailViewController: UIViewController {
         }
         self.graphView = graphView
 
-        let totalBillButton = UIButton.buttonWithType(.System) as! UIButton
+        let totalBillButton = UIButton(type: .System)
         totalBillButton.bk_addEventHandler({ [weak self] sender in
             self?.presentBillList()
             return
         }, forControlEvents: .TouchUpInside)
 
-        let addBillButton = UIButton.buttonWithType(.System) as! UIButton
+        let addBillButton = UIButton(type: .System)
         addBillButton.setTitle(NSLocalizedString("Add Bill", comment: ""), forState: .Normal)
         addBillButton.bk_addEventHandler({ [weak self] sender in
-            let controller = BillAddViewController.billAddViewController()
+            let controller = BillAddViewController()
             controller.friend = self?.friend
             self?.presentViewController(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }, forControlEvents: .TouchUpInside)
@@ -60,22 +60,22 @@ class FriendDetailViewController: UIViewController {
         self.view.addSubview(addBillButton)
         nameButton.snp_makeConstraints { [weak self] make in
             make.centerX.equalTo(nameButton.superview!)
-            make.top.equalTo(self!.topLayoutGuide).with.offset(70)
+            make.top.equalTo(self!.topLayoutGuide).offset(70)
             make.height.equalTo(24)
         }
         graphView.snp_makeConstraints { make in
-            make.top.greaterThanOrEqualTo(nameButton.snp_bottom).with.offset(20)
+            make.top.greaterThanOrEqualTo(nameButton.snp_bottom).offset(20)
             make.left.equalTo(addBillButton.superview!.snp_leftMargin)
             make.right.equalTo(addBillButton.superview!.snp_rightMargin)
-            make.centerY.equalTo(graphView.superview!.snp_centerY).with.priority(999)
-            make.height.equalTo(graphView.snp_width).and.multipliedBy(9.0/16.0).with.priority(999)
-            make.height.lessThanOrEqualTo(graphView.snp_width).and.multipliedBy(9.0/16.0)  // 16:9
+            make.centerY.equalTo(graphView.superview!.snp_centerY).priority(999)
+            make.height.equalTo(graphView.snp_width).multipliedBy(9.0/16.0).priority(999)
+            make.height.lessThanOrEqualTo(graphView.snp_width).multipliedBy(9.0/16.0)  // 16:9
         }
 
         totalBillButton.snp_makeConstraints { make in
             make.centerX.equalTo(nameButton.superview!)
-            make.top.equalTo(graphView.snp_bottom).with.offset(20)
-            make.bottom.lessThanOrEqualTo(addBillButton.snp_top).with.offset(-20)
+            make.top.equalTo(graphView.snp_bottom).offset(20)
+            make.bottom.lessThanOrEqualTo(addBillButton.snp_top).offset(-20)
         }
         addBillButton.snp_makeConstraints { make in
             make.height.equalTo(60.0)
