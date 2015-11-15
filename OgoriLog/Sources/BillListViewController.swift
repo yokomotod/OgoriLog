@@ -112,7 +112,7 @@ class BillListViewController: UITableViewController, NSFetchedResultsControllerD
 
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: String(format: "BillList.%ld", self.friend.identifier.integerValue))
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         aFetchedResultsController.delegate = self
 
         do {
